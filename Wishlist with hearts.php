@@ -22,7 +22,14 @@ if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', 
   die("Please install WooCommerce & try again");
 }
 
+
 // Define plugin paths and URLs
 
-define( 'RVPPLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'RVPPLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WLWHPLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'WLWHPLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
+// Create Settings Fields
+include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-settings-fields.php');
+
+// create menu
+include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-menus.php');
