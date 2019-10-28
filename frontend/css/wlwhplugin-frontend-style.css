@@ -1,0 +1,41 @@
+/******************************
+   WISH LIST
+******************************/
+
+
+.wish-box{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 5%;
+    top: 5%;
+    color: #ff0000;
+    font-size:1.4rem;
+}
+
+.wish-box .fa-heart {
+    position: absolute;
+    left: 0;
+    visibility: hidden;
+    transition: all .4s ease-out;
+    transform: scale(.2);
+    opacity: 0;
+}
+
+.wish-box .fa-heart-o {
+    left: 0;
+    position: absolute;
+}
+
+.wish-box[data-exists="yes"] .fa-heart {
+    position: absolute;
+    transform: scale(1);
+    visibility: visible;
+    opacity: 1;
+}
+
+.wish-box[data-exists="yes"] .fa-heart-o {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+}

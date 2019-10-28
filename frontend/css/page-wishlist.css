@@ -1,0 +1,125 @@
+.page-wishlist{
+	margin: 10px;
+}
+
+.page-wishlist__row{
+		padding: 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+		border: 1px solid #000000;
+		box-shadow: 3px 3px 3px 3px #f2f0f0;
+    background-color: #f8f9fa;
+		margin-bottom: 10px;
+	}
+
+.page-wishlist__row : last-row {
+	margin-bottom: 0;
+}
+
+.col-1{
+	flex:1;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+.col-2{
+  flex:2;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+.col-3{
+  flex:3;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+
+.col-4{
+  flex:4;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+.col-5{
+  flex:5;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+.col-6{
+  flex:6;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+
+
+.page-wishlist__heading{
+		text-align: center;
+    	color: #0D3B66;
+	}
+.page-wishlist__title{
+		font-size: 1.25rem;
+    	text-align: center;
+    	color: #0D3B66;
+			padding-left: 10px;
+      box-sizing: border-box;
+    	white-space: nowrap;
+	}
+.page-wishlist__price{
+			font-size: 1.25rem;
+    	font-weight: 300;
+      text-align: center;
+
+    	padding-bottom: 10px;
+	}
+.page-wishlist__desc{
+		font-size: 1.25rem;
+    	font-weight: 300;
+    	padding-left: 10px;
+      box-sizing: border-box;
+
+	}
+.page-wishlist__trashicon{
+    	font-size: 1.75rem;
+			display: flex;
+      justify-content: center;
+    	cursor: pointer;
+			margin: auto;
+	}
+
+.page-wishlist__trashicon :hover{
+	transform: scale(1.5,1.5);
+}
+
+
+.page-wishlist__innerflex{
+  display: flex;
+  flex-direction: column;
+	min-width: 114px;
+}
+
+
+.page-wishlist__addtocartbtn{
+			background: #e8e8eb;
+	    font-size: 1.25rem;
+      margin: auto;
+	    color: #000000;
+			padding-left: 10px;
+			padding-right: 10px;
+	}
+
+.page-wishlist__addtocartbtn:hover{
+		background: #cfcfd1;
+		margin: auto;
+	}
+
+.page-wishlist__carticon{
+      text-align: center;
+    	font-size: 1.25rem !important;
+    	cursor: pointer;
+			margin-bottom: 10px;
+	}
+
+	.page-wishlist__carticon:hover{
+		transform: scale(1.25,1.25);
+	}
