@@ -19,12 +19,20 @@ if( !class_exists('wlwh_create_metabox')){
 		      $custom = get_post_custom( $post->ID );
 					// Retrieve post meta fields, based on post ID.
 					// since we have 1 custom field so array [0]
+
+					//starting email panga
+					global $post;
+					$user_id=substr(get_the_title($post->ID),10 ) ;
+					$user_info=get_userdata($user_id);
+					// email panga ends
 		      ?>
 
 		      <p>
 
 		          <label>Wish List</label><br />
 		          <input type="text" name="wishids" value="<?php _e($custom["wishids"][0]); ?>" />
+
+							<a href="mailto: <?php _e($user_info->user_email); ?> ?Subject=Khareed%20le&amp;body=Abe yeh teri wish list mein tha khareedna hai kya "> &nbsp Send mail to <?php echo $user_info->display_name ; ?></a>
 		      </p>
 
 		      <?php

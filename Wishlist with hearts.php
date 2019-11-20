@@ -45,3 +45,4 @@ include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-show-hearts.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-wish-route.php');
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-create-page.php');
+include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-create-button.php');

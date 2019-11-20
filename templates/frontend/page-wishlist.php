@@ -11,6 +11,13 @@ get_header();
 ============================================ -->
 <div class="page-wishlist" id="wish-container">
 			<?php
+			$options = get_option('wlwhplugin_settings');
+
+			?>
+			<div class ="wish-header">
+					<h1> <?php _e( $options['wlwh_label'] ); ?></h1>
+			</div>
+			<?php
 			if(is_user_logged_in()){
           $currentUserId = get_current_user_id();
           $userTitle = "wlwh_user_" . $currentUserId ;
@@ -36,28 +43,29 @@ get_header();
     			       if($wishListId){
     					         $currentproduct = wc_get_product( $wishListId );
     					         ?>
-    					         <div id = "<?php echo $wishListId ; ?>" class="page-wishlist__row " >
+    					         <div id = "<?php _e($wishListId) ; ?>" class="page-wishlist__row " >
 
                             <div class = "col-3">
-    									           <a href=" <?php echo get_permalink($wishListId) ?>" >
+    									           <a href=" <?php _e(get_permalink($wishListId)) ?>" >
     										         <?php
     												     if(has_post_thumbnail( $wishListId)){
-    													             echo get_the_post_thumbnail( $wishListId, 'thumbnail' );
+    													             _e(get_the_post_thumbnail( $wishListId, 'thumbnail' ));
     												    }
     										    	  ?>
     										        </a>
                            </div>  <!-- end of col-2   -->
 
             							<div class="col-3">
-            											<a href=" <?php echo get_permalink($wishListId) ?>" >
+            											<a href=" <?php _e(get_permalink($wishListId)) ; ?>" >
             											<div class = "page-wishlist__title">
-            												     <?php echo $currentproduct->get_title(); ?>
+            												     <?php _e($currentproduct->get_title()); ?>
             									    </div>
             								    	</a>
             								    	<div class = "page-wishlist__price">
-            								    		<?php echo $currentproduct->get_price_html(); ?>
+            								    		<?php _e($currentproduct->get_price_html()) ; ?>
             								    	</div>
-																	<a href="<?php echo $currentproduct->add_to_cart_url(); // Now del this product from wish list as it is added to cart ?>" >
+																	<a href= "<?php _e( $currentproduct->add_to_cart_url() ); ?>" >
+																		<!--  Now del this product from wish list as it is added to cart -->
             									   			<div class = "page-wishlist__innerflex">
             											     				<div class="fa fa-shopping-cart page-wishlist__carticon ">
             												   				</div>
@@ -71,14 +79,18 @@ get_header();
 
             											<div class = "page-wishlist__desc">
             													<?php
-                                            echo $currentproduct->get_short_description();
+																			if( isset( $options[ 'complete_checkbox' ] ) ) {
+                                            _e($currentproduct->get_description()) ;
+																			} else {
+																						_e($currentproduct->get_short_description()) ;
+																			}
                                        ?>
           											   </div>
 
             								</div>
 
         								<div class= "col-1 page-wishlist__trashicon ">
-        									<span class="fa fa-trash trashwishitem"  aria-hidden="true" data-trashitem ="<?php echo $wishListId ; ?>"></span>
+        									<span class="fa fa-trash trashwishitem"  aria-hidden="true" data-trashitem ="<?php _e($wishListId)  ; ?>"></span>
         								</div>
       							</div>
 
@@ -88,7 +100,7 @@ get_header();
 
 
 				} else { //no products in wish list
-					echo("No products in  your wish list");
+					_e("No products in  your wish list");
 				}
 
 			}   // $count = 1
@@ -96,7 +108,7 @@ get_header();
 
 			} //  if user logged in
 			else {
-				echo("Please log in to see your wish list");
+				_e("Please log in to see your wish list");
 			}
 
 			?>

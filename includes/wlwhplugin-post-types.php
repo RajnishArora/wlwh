@@ -23,8 +23,8 @@ class wlwh_create_cpt{
                       'labels' => array(
                         'name' => _x('Wlwh','post type general name','wlwhplugin'),
                         'singular_name' => _x('Wlwh','post type singular name','wlwhplugin'),
-                        'add_new_item' => __('Add New Product','wlwhplugin'),
-                        'all_items' => __('All Products','wlwhplugin')
+                        'add_new_item' => __('Add User','wlwhplugin'),
+                        'all_items' => __('All Users','wlwhplugin')
 
                       ),
                       'menu_icon' => 'dashicons-visibility'
