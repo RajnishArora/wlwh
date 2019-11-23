@@ -92,6 +92,7 @@
 .page-wishlist__innerflex{
   display: flex;
   flex-direction: column;
+	font-size: 1.25rem;
 	min-width: 114px;
 }
 

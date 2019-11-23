@@ -67,10 +67,9 @@ get_header();
 																	<a href= "<?php _e( $currentproduct->add_to_cart_url() ); ?>" >
 																		<!--  Now del this product from wish list as it is added to cart -->
             									   			<div class = "page-wishlist__innerflex">
-            											     				<div class="fa fa-shopping-cart page-wishlist__carticon ">
-            												   				</div>
-			            												   <div class ="d-none d-md-show page-wishlist__addtocartbtn">Add to Cart
-			            											 	   </div>
+            											     				<span class="fa fa-shopping-cart page-wishlist__carticon ">Add to Cart
+            												   				</span>
+
             										       </div>
 																	</a>
             							</div>

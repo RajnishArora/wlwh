@@ -5,6 +5,8 @@ function wlwhplugin_settings() {
   if( false == get_option( 'wlwhplugin_settings' ) ) {
       add_option( 'wlwhplugin_settings' );
   }
+// add a custom post type
+
 
   // Define (at least) one section for our fields
   add_settings_section(
