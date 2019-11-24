@@ -32,14 +32,16 @@ define( 'WLWHPLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 //include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-settings-fields.php');
 include( WLWHPLUGIN_DIR . 'includes/wlwhplugin-settings-fields.php');
 
-// create menu
-include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-menus.php');
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-styles.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-scripts.php');
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-create-metabox.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-post-types.php');
+
+// create menu
+include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-menus.php');
+
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-show-hearts.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-wish-route.php');

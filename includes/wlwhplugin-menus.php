@@ -12,6 +12,7 @@ function wlwhplugin_settings_page_markup()
 
 function wlwhplugin_settings_pages()
 {
+  /*
   add_menu_page(
     __( 'Wishlist with hearts Plugin', 'wlwhplugin' ),   //page title
     __( 'Wishlist', 'wlwhplugin' ), //menu title
@@ -21,8 +22,17 @@ function wlwhplugin_settings_pages()
     'dashicons-heart',
     100
   );
-
+  */
+  add_submenu_page(
+    'edit.php?post_type=wish',
+    __( 'Wish Settings', 'wlwhplugin' ),
+    __( 'Wish Settings', 'wlwhplugin' ),
+    'manage_options',
+    'wlwhplugin-wish',
+    'wlwhplugin_settings_page_markup'
+  );
 }
+//add_action( 'admin_menu', 'wlwhplugin_settings_pages' );
 add_action( 'admin_menu', 'wlwhplugin_settings_pages' );
 
 
