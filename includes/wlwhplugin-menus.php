@@ -10,6 +10,15 @@ function wlwhplugin_settings_page_markup()
 }
 
 
+function wlwhplugin_email_page_markup()
+{
+  // Double check user capabilities
+  if ( !current_user_can('manage_options') ) {
+      return;
+  }
+  include( WLWHPLUGIN_DIR . 'templates/admin/email-page.php');
+}
+
 function wlwhplugin_settings_pages()
 {
   /*
@@ -30,6 +39,15 @@ function wlwhplugin_settings_pages()
     'manage_options',
     'wlwhplugin-wish',
     'wlwhplugin_settings_page_markup'
+  );
+
+  add_submenu_page(
+    'edit.php?post_type=wish',
+    __( 'Email Settings', 'wlwhplugin' ),
+    __( 'Email Settings', 'wlwhplugin' ),
+    'manage_options',
+    'wlwhplugin-email',
+    'wlwhplugin_email_page_markup'
   );
 }
 //add_action( 'admin_menu', 'wlwhplugin_settings_pages' );

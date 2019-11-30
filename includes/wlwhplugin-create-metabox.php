@@ -5,6 +5,7 @@ if( !class_exists('wlwh_create_metabox')){
 	class wlwh_create_metabox{
 
 		public function __construct(){
+			$this->options = get_option( 'wlwhplugin_email_settings' );
 
 		}
 
@@ -21,7 +22,7 @@ if( !class_exists('wlwh_create_metabox')){
 					// since we have 1 custom field so array [0]
 
 					//starting email panga
-					global $post;
+			//		global $post;
 					$user_id=substr(get_the_title($post->ID),10 ) ;
 					$user_info=get_userdata($user_id);
 					// email panga ends
@@ -31,10 +32,58 @@ if( !class_exists('wlwh_create_metabox')){
 
 		          <label>Wish List</label><br />
 		          <input type="text" name="wishids" value="<?php _e($custom["wishids"][0]); ?>" />
+	      	</p>
 
-							<a href="mailto: <?php _e($user_info->user_email); ?> ?Subject=Khareed%20le&amp;body=Abe yeh teri wish list mein tha khareedna hai kya "> &nbsp Send mail to <?php echo $user_info->display_name ; ?></a>
-		      </p>
+					<p>
+						<?php
 
+						//$str = date("l jS \of F Y h:i:s A");
+						//echo $str;
+						$wishString  = $custom["wishids"][0] ;
+						$wishListIds = explode(',',$wishString);
+
+						foreach ($wishListIds as $wishListId) {
+							//print_r($wishListId);
+								 if($wishListId){
+											 $currentproduct = wc_get_product( $wishListId );
+											 $currentThumbnail = get_the_post_thumbnail( $wishListId, array(50,50) );
+											 $currentTitle = $currentproduct->get_title();
+											 $currentPrice = $currentproduct->get_price_html();
+											// $emailContent = $emailBody . $currentTitle . $currentPrice;
+											 ?>
+
+
+
+											 <div id = "<?php _e($wishListId) ; ?>" class="metabox__row " >
+
+														<div class = "col-2">
+
+																 <?php
+																 if(has_post_thumbnail( $wishListId)){
+																					 _e($currentThumbnail);
+																}
+																?>
+
+													 </div>  <!-- end of col-2   -->
+
+													<div class="col-2">
+																	<div class = "metabox__title">
+																				 <?php _e($currentTitle); ?>
+																	</div>
+													</div>
+
+														<div class= "col-5">
+																 <button type="button" class ="emailbutton" id="emailbutton" data-productid="<?php _e($wishListId);?>" data-postid="<?php _e($post->ID); ?>" >Send mail to <?php echo $user_info->display_name ; ?> about this product</button>
+														</div>
+
+										</div>
+
+						<?php
+							} // if wish list id ..
+						}   //foreach
+						?>
+
+					</p>
 		      <?php
 		}
 

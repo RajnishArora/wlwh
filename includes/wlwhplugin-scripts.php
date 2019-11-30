@@ -5,6 +5,11 @@ function wlwhplugin_admin_scripts() {
   wp_enqueue_script(
     'wlwhplugin-admin', WLWHPLUGIN_URL . 'admin/js/wlwhplugin-admin.js', ['jquery'],  time()
   );
+  wp_localize_script('wlwhplugin-admin', 'wlwhData', array(
+      'pluginsUrl' => plugins_url(),
+      'root_url' => get_site_url(),
+      'nonce' => wp_create_nonce('wp_rest'),
+  ));
 }
 add_action( 'admin_enqueue_scripts', 'wlwhplugin_admin_scripts', 100 );
 

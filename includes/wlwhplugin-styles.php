@@ -11,3 +11,11 @@ function wlwhplugin_frontend_styles() {
   );
 }
 add_action( 'wp_enqueue_scripts', 'wlwhplugin_frontend_styles', 100 );
+
+// load css for admin screens
+function wlwhplugin_admin_styles() {
+  wp_enqueue_style(
+    'wlwhplugin-admin', WLWHPLUGIN_URL . 'admin/css/metabox.css', [],  time()
+  );
+}
+add_action( 'admin_enqueue_scripts', 'wlwhplugin_admin_styles', 100 );

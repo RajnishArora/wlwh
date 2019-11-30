@@ -1,0 +1,39 @@
+.col-2{
+  flex:2;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+
+.col-3{
+  flex:3;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+
+.col-4{
+  flex:4;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+.col-5{
+  flex:5;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+
+.metabox__row{
+		padding: 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+		margin-bottom: 10px;
+    border-bottom: 1px solid;
+	}
+
+.metabox__title{
+    font-size: 1.25rem;
+}

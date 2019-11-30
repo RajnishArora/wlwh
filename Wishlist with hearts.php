@@ -31,6 +31,7 @@ define( 'WLWHPLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Create Settings Fields
 //include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-settings-fields.php');
 include( WLWHPLUGIN_DIR . 'includes/wlwhplugin-settings-fields.php');
+include( WLWHPLUGIN_DIR . 'includes/wlwhplugin-email-settings-fields.php');
 
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-styles.php');
@@ -45,6 +46,8 @@ include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-menus.php');
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-show-hearts.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-wish-route.php');
+
+include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-email-route.php');
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-create-page.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-create-button.php');
