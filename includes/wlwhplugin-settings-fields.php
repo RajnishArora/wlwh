@@ -104,7 +104,7 @@ function wlwhplugin_settings() {
         'wlwhplugin_settings_section'
       );
 
-
+/*
     // Checkbox Field
     add_settings_field(
       'wlwhplugin_description_selector_checkbox',
@@ -116,8 +116,20 @@ function wlwhplugin_settings() {
         'label' => ' '
       ]
     );
+*/
 
-
+  // Radio Field
+  add_settings_field(
+    'wlwhplugin_description_selector_checkbox',
+    __( 'Choose which Description to show on WishList Page', 'wlwhplugin'),
+    'wlwhplugin_description_selector_checkbox_callback',
+    'wlwhplugin',
+    'wlwhplugin_settings_section',
+    [
+      'option_one' => 'Short Description',
+      'option_two' => 'Long Description'
+    ]
+  );
 
 
   register_setting(
@@ -228,25 +240,15 @@ function wlwhplugin_toast_text_callback() {
 function wlwhplugin_description_selector_checkbox_callback( $args ) {
   $options = get_option( 'wlwhplugin_settings' );
 
-  $short_checkbox = '';
-  if( isset( $options[ 'short_checkbox' ] ) ) {
-    $short_checkbox = esc_html( $options['short_checkbox'] );
-  }
-  $short_html = '<input type="checkbox" id="wlwhplugin_short_checkbox" name="wlwhplugin_settings[short_checkbox]" value="1"' . checked( 1, $short_checkbox, false ) . '/>';
-  $short_html .= '&nbsp;';
-  $short_html .= '<label for="wlwhplugin_short_checkbox">' . " Short description" . '</label>';
-  $short_html .= '&nbsp;';$short_html .= '&nbsp;';$short_html .= '&nbsp;';$short_html .= '&nbsp;';
-  $short_html .= '&nbsp;';$short_html .= '&nbsp;';$short_html .= '&nbsp;';$short_html .= '&nbsp;';
+  $radio = '';
+	if( isset( $options[ 'radio' ] ) ) {
+		$radio = esc_html( $options['radio'] );
+	}
 
-  _e($short_html);
-
-  $complete_checkbox = '';
-  if( isset( $options[ 'complete_checkbox' ] ) ) {
-    $complete_checkbox = esc_html( $options['complete_checkbox'] );
-  }
-  $complete_html = '<input type="checkbox" id="wlwhplugin_complete_checkbox" name="wlwhplugin_settings[complete_checkbox]" value="1"' . checked( 1, $complete_checkbox, false ) . '/>';
-  $complete_html .= '&nbsp;';
-  $complete_html .= '<label for="wlwhplugin_complete_checkbox">' . "Full description" . '</label>';
-  _e($complete_html);
-
+	$html = '<input type="radio" id="wlwhplugin_settings_radio_one" name="wlwhplugin_settings[radio]" value="1"' . checked( 1, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_one">'. $args['option_one'] .'</label> &nbsp;';
+	$html .= '<input type="radio" id="wlwhplugin_settings_radio_two" name="wlwhplugin_settings[radio]" value="2"' . checked( 2, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_two">'. $args['option_two'] .'</label>';
+  _e($html);
+	//echo $html;
 }

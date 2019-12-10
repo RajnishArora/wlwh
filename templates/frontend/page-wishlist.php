@@ -45,7 +45,7 @@ get_header();
     					         ?>
     					         <div id = "<?php _e($wishListId) ; ?>" class="page-wishlist__row " >
 
-                            <div class = "col-3">
+                            <div class = "col-2">
     									           <a href=" <?php _e(get_permalink($wishListId)) ?>" >
     										         <?php
     												     if(has_post_thumbnail( $wishListId)){
@@ -55,7 +55,7 @@ get_header();
     										        </a>
                            </div>  <!-- end of col-2   -->
 
-            							<div class="col-3">
+            							<div class="col-4">
             											<a href=" <?php _e(get_permalink($wishListId)) ; ?>" >
             											<div class = "page-wishlist__title">
             												     <?php _e($currentproduct->get_title()); ?>
@@ -78,11 +78,14 @@ get_header();
 
             											<div class = "page-wishlist__desc">
             													<?php
-																			if( isset( $options[ 'complete_checkbox' ] ) ) {
-                                            _e($currentproduct->get_description()) ;
-																			} else {
-																						_e($currentproduct->get_short_description()) ;
-																			}
+																			if( isset( $options['radio'] ) ) {
+																					$optionChosen = $options['radio'];
+																					if( $optionChosen == '1'){
+																								_e($currentproduct->get_short_description()) ;
+																					} else if ( $optionChosen == '2'){
+																								_e($currentproduct->get_description()) ;
+																					}
+                                      }
                                        ?>
           											   </div>
 

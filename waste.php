@@ -208,3 +208,72 @@ if( 'wlwhplugin_short_checkbox' == cc ){
 	}
 }
 */
+
+
+
+
+  $short_checkbox = '';
+  if( isset( $options[ 'short_checkbox' ] ) ) {
+    $short_checkbox = esc_html( $options['short_checkbox'] );
+  }
+  $short_html = '<input type="checkbox" id="wlwhplugin_short_checkbox" name="wlwhplugin_settings[short_checkbox]" value="1"' . checked( 1, $short_checkbox, false ) . '/>';
+  $short_html .= '&nbsp;';
+  $short_html .= '<label for="wlwhplugin_short_checkbox">' . " Short description" . '</label>';
+  $short_html .= '&nbsp;';$short_html .= '&nbsp;';$short_html .= '&nbsp;';$short_html .= '&nbsp;';
+  $short_html .= '&nbsp;';$short_html .= '&nbsp;';$short_html .= '&nbsp;';$short_html .= '&nbsp;';
+
+  _e($short_html);
+
+  $complete_checkbox = '';
+  if( isset( $options[ 'complete_checkbox' ] ) ) {
+    $complete_checkbox = esc_html( $options['complete_checkbox'] );
+  }
+  $complete_html = '<input type="checkbox" id="wlwhplugin_complete_checkbox" name="wlwhplugin_settings[complete_checkbox]" value="1"' . checked( 1, $complete_checkbox, false ) . '/>';
+  $complete_html .= '&nbsp;';
+  $complete_html .= '<label for="wlwhplugin_complete_checkbox">' . "Full description" . '</label>';
+  _e($complete_html);
+
+
+
+	var cc = e.target.id;
+
+	if( 'wlwhplugin_complete_checkbox' == cc ) {
+			if( ($('#wlwhplugin_short_checkbox').prop('checked') == false) && ($('#wlwhplugin_complete_checkbox').prop('checked') == false)  ){
+					$('#wlwhplugin_short_checkbox').prop('checked',true);
+					$('#wlwhplugin_complete_checkbox').prop('checked',false);
+			}
+			if( $('#wlwhplugin_complete_checkbox').is( ':checked') ){
+					$('#wlwhplugin_short_checkbox').prop('checked',false);
+			} else {
+					$('#wlwhplugin_short_checkbox').prop('checked',true);
+			}
+	}
+	if( 'wlwhplugin_short_checkbox' == cc ){
+		if( $('#wlwhplugin_complete_checkbox').is( ':checked') ){
+				$('#wlwhplugin_complete_checkbox').prop('checked',false);
+		} else {
+				$('#wlwhplugin_complete_checkbox').prop('checked',true);
+		}
+	}
+
+	function(rep){
+		if(rep == true) {
+			alert("Mail Sent"); //repalce alert by custom message box
+		}
+		else if(rep == false) {
+			alert("Mail couldnot be sent. Please check server settings");
+		}
+	}
+
+
+
+	/*
+	add_action( 'phpmailer_init', 'mailer_config', 10, 1);
+	function mailer_config(PHPMailer $mailer){
+	  $mailer->IsSMTP();
+	  $mailer->Host = "mail.telemar.it"; // your SMTP server
+	  $mailer->Port = 25;
+	  $mailer->SMTPDebug = 2; // write 0 if you don't want to see client/server communication in page
+	  $mailer->CharSet  = "utf-8";
+	}
+	*/

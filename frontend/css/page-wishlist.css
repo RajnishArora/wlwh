@@ -15,16 +15,22 @@
 
 
 .col-1{
+	display: flex;
+	margin: auto;
 	flex:1;
 	padding-left: 10px;
 	box-sizing: border-box;
 }
 .col-2{
+	display: flex;
+	margin: auto;
   flex:2;
 	padding-left: 10px;
 	box-sizing: border-box;
 }
 .col-3{
+	display: flex;
+	margin: auto;
   flex:3;
 	padding-left: 10px;
 	box-sizing: border-box;
@@ -32,17 +38,24 @@
 
 
 .col-4{
+	display: flex;
+	margin: auto;
+	flex-direction: column;
   flex:4;
 	padding-left: 10px;
 	box-sizing: border-box;
 }
 
 .col-5{
+	display: flex;
+	margin: auto;
   flex:5;
 	padding-left: 10px;
 	box-sizing: border-box;
 }
 .col-6{
+	display: flex;
+	margin: auto;
   flex:6;
 	padding-left: 10px;
 	box-sizing: border-box;
@@ -55,7 +68,7 @@
     	color: #0D3B66;
 	}
 .page-wishlist__title{
-		font-size: 1.25rem;
+		font-size: 1.5rem;
     	text-align: center;
     	color: #0D3B66;
 			padding-left: 10px;

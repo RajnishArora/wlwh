@@ -22,7 +22,6 @@ if( !class_exists('wlwh_create_metabox')){
 					// since we have 1 custom field so array [0]
 
 					//starting email panga
-			//		global $post;
 					$user_id=substr(get_the_title($post->ID),10 ) ;
 					$user_info=get_userdata($user_id);
 					// email panga ends
@@ -30,7 +29,7 @@ if( !class_exists('wlwh_create_metabox')){
 
 		      <p>
 
-		          <label>Wish List</label><br />
+		          <label>Wish List</label><br>
 		          <input type="text" name="wishids" value="<?php _e($custom["wishids"][0]); ?>" />
 	      	</p>
 
@@ -41,6 +40,7 @@ if( !class_exists('wlwh_create_metabox')){
 						//echo $str;
 						$wishString  = $custom["wishids"][0] ;
 						$wishListIds = explode(',',$wishString);
+						$options = get_option( 'wlwhplugin_email_settings' );
 
 						foreach ($wishListIds as $wishListId) {
 							//print_r($wishListId);
@@ -70,20 +70,63 @@ if( !class_exists('wlwh_create_metabox')){
 																	<div class = "metabox__title">
 																				 <?php _e($currentTitle); ?>
 																	</div>
-													</div>
+ 													</div>
 
-														<div class= "col-5">
+													<div class= "col-5">
 																 <button type="button" class ="emailbutton" id="emailbutton" data-productid="<?php _e($wishListId);?>" data-postid="<?php _e($post->ID); ?>" >Send mail to <?php echo $user_info->display_name ; ?> about this product</button>
-														</div>
+													</div>
 
 										</div>
 
 						<?php
 							} // if wish list id ..
+							$to = sanitize_email($user_info->user_email);
+							$subject = sanitize_text_field($options['wlwh_email_subject']);
+							$message1 = sanitize_textarea_field($options['wlwh_email_content_before']);
+							$message2 = sanitize_textarea_field($options['wlwh_email_content_after']);
+	//						$currentDetails = '<div> Hello php </div> ';
+							$productDetails = $currentThumbnail."<br>".$currentTitle."<br>".$currentPrice;
+	//						$productDetails = $currentThumbnail.$currentDetails;
+							$message = "<br>".$message1."<br><br>".$productDetails."<br><br>".$message2."<br>";
+
+
+
+							?>
+							<div class = "modal hidden" id="email-confirm">
+								<div  class="modal-content">
+										<span class ="heading"> Do you want to send the following email
+											<button type="button" class="btn ok okupper" id = "okbtn">Send</button>
+											<button type="button" class="btn cancel cancelupper" id = "cancelupper">Cancel</button>
+										</span>
+										<hr>
+										<div>
+										<br>
+										<span> <b> To: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+										<input type="text" name="to" id = "mailto" size ="80" value="<?php _e($to);?>">
+										</div>
+										<span> <b>Subject: </b>&nbsp;&nbsp; </span>
+										<input type="text" name="subject" id="mailsub" size="80" value="<?php _e($subject);?>">
+										<hr>
+										<div><b>Content: </b></div>
+										<div id="createmetaboxmsg" contenteditable="true"> <?php _e($message); ?></div>
+										<br>
+										<button type="button" class="btn ok" id = "okbtn">Send</button>
+										<button type="button" class="btn cancel" id = "cancelbtn">Cancel</button>
+
+										<div class ="waiting hidden">
+														<img src = "<?php _e( plugin_dir_url( dirname( __FILE__ ) ). 'assets/waiting.gif' );?> ">
+										</div>
+
+									</div>
+
+							</div>
+							<?php
+
 						}   //foreach
 						?>
-
 					</p>
+
+
 		      <?php
 		}
 

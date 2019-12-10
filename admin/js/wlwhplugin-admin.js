@@ -1,71 +1,103 @@
 window.$ = window.jQuery = $ = jQuery  ;
 
 class Switch{
+
+  //this.y = document.getElementsByClassName('waiting');
+  //this.waiting = y[0];
+
+  //jquery not working in admin side may be jquery loads later ?
+
+
   constructor() {
+      this.waiting ;
+      this.msgcontent;
+      this.subject;
       this.events();
   }
 
+
+
+
   events(){
+      var evtDet;
+      var temp;
+      var postid;
+
+      this.waiting = $(".waiting");
+
+
+      //var y = document.getElementsByClassName('waiting');
+      //waiting = y[0];
+
     document.addEventListener("click",function(e){
 
-      if (e.target.type  ==  'checkbox' ){
-        var cc = e.target.id;
+      if(e.target.type  ==  'button'){
 
-        if( 'wlwhplugin_complete_checkbox' == cc ) {
-            if( ($('#wlwhplugin_short_checkbox').prop('checked') == false) && ($('#wlwhplugin_complete_checkbox').prop('checked') == false)  ){
-                $('#wlwhplugin_short_checkbox').prop('checked',true);
-                $('#wlwhplugin_complete_checkbox').prop('checked',false);
-            }
-            if( $('#wlwhplugin_complete_checkbox').is( ':checked') ){
-                $('#wlwhplugin_short_checkbox').prop('checked',false);
-            } else {
-                $('#wlwhplugin_short_checkbox').prop('checked',true);
-            }
-        }
-        if( 'wlwhplugin_short_checkbox' == cc ){
-          if( $('#wlwhplugin_complete_checkbox').is( ':checked') ){
-              $('#wlwhplugin_complete_checkbox').prop('checked',false);
-          } else {
-              $('#wlwhplugin_complete_checkbox').prop('checked',true);
-          }
+        evtDet = $(e.target);
+
+        if(e.target.id =='emailbutton'){
+          temp = evtDet.data("productid");
+          postid = evtDet.data("postid");
+
+
+          //console.log( evtDet.parent().parent());
+          evtDet.parent().parent().next(".modal").removeClass("hidden");
+
+        }else if(e.target.id == 'cancelupper'  ){
+          //$(e.target).parent().parent().addClass("hidden");
+          $(e.target).parent().parent().parent().addClass("hidden");
         }
 
+        else if(e.target.id == 'cancelbtn'  ){
+          $(e.target).parent().parent().addClass("hidden");
+          //$(e.target).parent().parent().parent().addClass("hidden");
+        } else if( e.target.id == 'okbtn'){
+                  this.mailto = $("#mailto");
+                  this.subject = $("#mailsub");
+                  this.msgcontent = $("#createmetaboxmsg");
+                //  var mailmsg = this.msgcontent.html();
+                //  alert(this.mailto.val());
 
-    } else if(e.target.type  ==  'button'){
+                //  var evtDet = $(e.target);
+                //  var temp = evtDet.data("productid");
+                //  var postid = evtDet.data("postid");
+                $(".waiting").removeClass("hidden");
+                  $.ajax({
+                    beforeSend: (xhr) => {
+                      xhr.setRequestHeader('X-WP-Nonce', wlwhData.nonce);
+                    },
+                    url: wlwhData.root_url + '/wp-json/wlwh/v1/sendemail',
+                    type: 'POST',
+                    data: {'productId': temp,
+                           'postId': postid,
+                           'mailto':this.mailto.val(),
+                           'mailsub':this.subject.val(),
+                           'emailmsg': this.msgcontent.html()
+                   },
+                    success: (response) => {
+                              $(".waiting").addClass("hidden");
+                              let rep = response;
+                              console.log("passed");
+                              console.log(rep);
+                              if(rep == true) {
+                          			alert("Mail Sent"); //repalce alert by custom message box
+                          		}
+                          		else if(rep == false) {
+                          			alert("Mail couldnot be sent. Please check server settings");
+                          		}
+                              // when then not working one after another with alert
 
-        var evtDet = $(e.target);
-        var temp = evtDet.data("productid");
-        var postid = evtDet.data("postid");
-//        alert(evtDet.data("postid"));
-//        alert("Sending ajax");
-
-        $.ajax({
-          beforeSend: (xhr) => {
-            xhr.setRequestHeader('X-WP-Nonce', wlwhData.nonce);
-          },
-          url: wlwhData.root_url + '/wp-json/wlwh/v1/sendemail',
-          type: 'POST',
-          data: {'productId': temp,
-                 'postId': postid
-
-         },
-          success: (response) => {
-                    console.log("passed");
-                    console.log(response);
-                    if(response == true) {
-                      alert("Mail Sent");
+                    },
+                    error: (response) => {
+                        $(".waiting").addClass("hidden");
+                        console.log("failed");
+                        console.log(response);
+                        alert("Mail couldnot be sent.Please try again");
                     }
-                    else if(response == false) {
-                      alert("Mail couldnot be sent. Please check server settings");
-                    }
-          },
-          error: (response) => {
-              console.log("failed");
-              console.log(response);
-              alert("Mail couldnot be sent.Please try again");
-          }
-        });
-    } // else target type button
+                  }); //ajax call ends
+        } // if ok button clicked
+
+    }  // target type is button
   }); // eventlistener
   }  //events
 

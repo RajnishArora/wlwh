@@ -20,7 +20,7 @@ if( !class_exists('wlwh_create_button')){
 						$wishpostId = $wishpost->ID;
 
 						if ( $wishpostId ){ 		//means wish list exists
-							$prvproductId = get_post_meta($wishpostId,'wishids',true);
+							$prvproductId = sanitize_text_field(get_post_meta($wishpostId,'wishids',true));
 							$arrayofWishListIds = explode(',',$prvproductId);
 							if (in_array($currentProductId,$arrayofWishListIds)){
 									$existStatus = 'yes';
