@@ -36,4 +36,3 @@ class wlwh_create_cpt{
 }
 
 add_action('init', array(new wlwh_create_cpt , 'create_cpt' ) );
-//add_action('init', array(new wlwh_create_cpt , 'create_cpt' ) );

@@ -81,9 +81,13 @@ class Switch{
                               console.log(rep);
                               if(rep == true) {
                           			alert("Mail Sent"); //repalce alert by custom message box
+                                $(e.target).parent().parent().addClass("hidden");
+
                           		}
                           		else if(rep == false) {
                           			alert("Mail couldnot be sent. Please check server settings");
+                                //$(e.target).parent().parent().addClass("hidden");
+
                           		}
                               // when then not working one after another with alert
 
@@ -98,6 +102,10 @@ class Switch{
         } // if ok button clicked
 
     }  // target type is button
+    else if(e.target.id == 'modalcross'){
+      $(e.target).parent().parent().parent().addClass("hidden");
+
+    }
   }); // eventlistener
   }  //events
 

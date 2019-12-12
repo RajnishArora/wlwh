@@ -28,9 +28,7 @@ if( !class_exists('wlwh_create_metabox')){
 		      ?>
 
 		      <p>
-
-		          <label>Wish List</label><br>
-		          <input type="text" name="wishids" value="<?php _e($custom["wishids"][0]); ?>" />
+		          <input type="hidden" name="wishids" value="<?php _e($custom["wishids"][0]); ?>" />
 	      	</p>
 
 					<p>
@@ -97,6 +95,7 @@ if( !class_exists('wlwh_create_metabox')){
 										<span class ="heading"> Do you want to send the following email
 											<button type="button" class="btn ok okupper" id = "okbtn">Send</button>
 											<button type="button" class="btn cancel cancelupper" id = "cancelupper">Cancel</button>
+											<span class = "cross" id = "modalcross">X</span>
 										</span>
 										<hr>
 										<div>

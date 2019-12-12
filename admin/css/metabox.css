@@ -85,3 +85,14 @@
   margin-top: -10%;
   margin-left:30%;
 }
+
+.cross{
+  position: absolute;
+  right: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cross:hover{
+  transform: scale(1.5,1.5);
+}
