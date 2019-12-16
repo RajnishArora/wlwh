@@ -50,18 +50,13 @@ if( !class_exists('wlwh_create_metabox')){
 											// $emailContent = $emailBody . $currentTitle . $currentPrice;
 											 ?>
 
-
-
 											 <div id = "<?php _e($wishListId) ; ?>" class="metabox__row " >
-
 														<div class = "col-2">
-
 																 <?php
 																 if(has_post_thumbnail( $wishListId)){
 																					 _e($currentThumbnail);
 																}
 																?>
-
 													 </div>  <!-- end of col-2   -->
 
 													<div class="col-2">
@@ -71,7 +66,7 @@ if( !class_exists('wlwh_create_metabox')){
  													</div>
 
 													<div class= "col-5">
-																 <button type="button" class ="emailbutton" id="emailbutton" data-productid="<?php _e($wishListId);?>" data-postid="<?php _e($post->ID); ?>" >Send mail to <?php echo $user_info->display_name ; ?> about this product</button>
+																 <button type="button" class ="emailbutton" data-productid="<?php _e($wishListId);?>" data-postid="<?php _e($post->ID); ?>" >Send mail to <?php echo $user_info->display_name ; ?> about this product</button>
 													</div>
 
 										</div>
@@ -82,35 +77,33 @@ if( !class_exists('wlwh_create_metabox')){
 							$subject = sanitize_text_field($options['wlwh_email_subject']);
 							$message1 = sanitize_textarea_field($options['wlwh_email_content_before']);
 							$message2 = sanitize_textarea_field($options['wlwh_email_content_after']);
+							$products_url = get_permalink($wishListId);
 	//						$currentDetails = '<div> Hello php </div> ';
-							$productDetails = $currentThumbnail."<br>".$currentTitle."<br>".$currentPrice;
+							$productDetails = "<a id ='product_a'>".$currentThumbnail."<br>".$currentTitle."<br>".$currentPrice."</a>";
 	//						$productDetails = $currentThumbnail.$currentDetails;
 							$message = "<br>".$message1."<br><br>".$productDetails."<br><br>".$message2."<br>";
-
-
-
 							?>
 							<div class = "modal hidden" id="email-confirm">
 								<div  class="modal-content">
 										<span class ="heading"> Do you want to send the following email
-											<button type="button" class="btn ok okupper" id = "okbtn">Send</button>
-											<button type="button" class="btn cancel cancelupper" id = "cancelupper">Cancel</button>
+											<button type="button" class="btn ok okupper okbtn" >Send</button>
+											<button type="button" class="btn cancel cancelupper" >Cancel</button>
 											<span class = "cross" id = "modalcross">X</span>
 										</span>
 										<hr>
 										<div>
 										<br>
 										<span> <b> To: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-										<input type="text" name="to" id = "mailto" size ="80" value="<?php _e($to);?>">
+										<input type="text" name="to" class = "mailto" size ="80" value="<?php _e($to);?>">
 										</div>
 										<span> <b>Subject: </b>&nbsp;&nbsp; </span>
-										<input type="text" name="subject" id="mailsub" size="80" value="<?php _e($subject);?>">
+										<input type="text" name="subject" class ="mailsub" size="80" value="<?php _e($subject);?>">
 										<hr>
 										<div><b>Content: </b></div>
 										<div id="createmetaboxmsg" contenteditable="true"> <?php _e($message); ?></div>
 										<br>
-										<button type="button" class="btn ok" id = "okbtn">Send</button>
-										<button type="button" class="btn cancel" id = "cancelbtn">Cancel</button>
+										<button type="button" class="btn ok okbtn" >Send</button>
+										<button type="button" class="btn cancel cancelbtn" >Cancel</button>
 
 										<div class ="waiting hidden">
 														<img src = "<?php _e( plugin_dir_url( dirname( __FILE__ ) ). 'assets/waiting.gif' );?> ">

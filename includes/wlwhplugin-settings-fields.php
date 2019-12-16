@@ -59,6 +59,21 @@ function wlwhplugin_settings() {
           ]
         );
 
+          // Radio Field
+          add_settings_field(
+            'wlwhplugin_heart_place_radio',
+            __( 'Place of heart on Images', 'wlwhplugin'),
+            'wlwhplugin_heart_place_radio_callback',
+            'wlwhplugin',
+            'wlwhplugin_settings_section',
+            [
+              'option_topleft' => 'Top Left',
+              'option_topright' => 'Top Right',
+              'option_bottomleft' => 'Bottom Left',
+              'option_bottomright' => 'Bottom Right'
+            ]
+          );
+
         // Input Text Field
         add_settings_field(
                 // Unique identifier for field
@@ -246,9 +261,31 @@ function wlwhplugin_description_selector_checkbox_callback( $args ) {
 	}
 
 	$html = '<input type="radio" id="wlwhplugin_settings_radio_one" name="wlwhplugin_settings[radio]" value="1"' . checked( 1, $radio, false ) . '/>';
-	$html .= ' <label for="wlwhplugin_settings_radio_one">'. $args['option_one'] .'</label> &nbsp;';
+	$html .= ' <label for="wlwhplugin_settings_radio_one">'. $args['option_one'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 	$html .= '<input type="radio" id="wlwhplugin_settings_radio_two" name="wlwhplugin_settings[radio]" value="2"' . checked( 2, $radio, false ) . '/>';
 	$html .= ' <label for="wlwhplugin_settings_radio_two">'. $args['option_two'] .'</label>';
+  _e($html);
+	//echo $html;
+}
+
+
+function wlwhplugin_heart_place_radio_callback( $args ) {
+  $options = get_option( 'wlwhplugin_settings' );
+
+  $radio = '';
+	if( isset( $options[ 'heart_place' ] ) ) {
+		$radio = esc_html( $options['heart_place'] );
+	}
+
+	$html = '<input type="radio" id="wlwhplugin_settings_radio_topleft" name="wlwhplugin_settings[heart_place]" value="1"' . checked( 1, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_topleft">'. $args['option_topleft'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+	$html .= '<input type="radio" id="wlwhplugin_settings_radio_topright" name="wlwhplugin_settings[heart_place]" value="2"' . checked( 2, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_topright">'. $args['option_topright'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= '<input type="radio" id="wlwhplugin_settings_radio_bottomleft" name="wlwhplugin_settings[heart_place]" value="3"' . checked( 3, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_bottomleft">'. $args['option_bottomleft'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+	$html .= '<input type="radio" id="wlwhplugin_settings_radio_bottomright" name="wlwhplugin_settings[heart_place]" value="4"' . checked( 4, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_bottomright">'. $args['option_bottomright'] .'</label>';
+
   _e($html);
 	//echo $html;
 }

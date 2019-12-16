@@ -78,6 +78,7 @@ get_header();
 
             											<div class = "page-wishlist__desc">
             													<?php
+																			$optionChosen ='1';
 																			if( isset( $options['radio'] ) ) {
 																					$optionChosen = $options['radio'];
 																					if( $optionChosen == '1'){

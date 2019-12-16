@@ -277,3 +277,55 @@ if( 'wlwhplugin_short_checkbox' == cc ){
 	  $mailer->CharSet  = "utf-8";
 	}
 	*/
+
+'add_new_item' => __('Add User','wlwhplugin'),
+
+$html = '<input type="radio" id="wlwhplugin_settings_radio_bottomleft" name="wlwhplugin_settings[heart_place]" value="3"' . checked( 3, $radio, false ) . '/>';
+$html .= ' <label for="wlwhplugin_settings_radio_bottomleft">'. $args['option_bottomleft'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+$html .= '<input type="radio" id="wlwhplugin_settings_radio_bottomright" name="wlwhplugin_settings[heart_place]" value="4"' . checked( 4, $radio, false ) . '/>';
+$html .= ' <label for="wlwhplugin_settings_radio_bottomright">'. $args['option_bottomright'] .'</label>';
+
+
+var img = document.getElementById('imageid');
+//or however you get a handle to the IMG
+var width = img.clientWidth;
+var height = img.clientHeight;
+
+
+<?php
+$optionChosen ='1';
+if( isset( $this->options['heart_place'] ) ) {
+		$optionChosen = $this->options['heart_place'];
+		if( $optionChosen == '1'){ ?>
+
+		<?php
+	} else if ( $optionChosen == '2'){ ?>
+				<span class="wish-box  hidden wish-box_hover" style = " cursor:url('<?php _e($heart_url) ;  ?>' ) 6 6 ,cell" data-exists="<?php _e($existStatus); ?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>">
+		<?php
+	} else if( $optionChosen == '3' ){ ?>
+			<span class="wish-box  hidden wish-box_hover" style = " cursor:url('<?php _e($heart_url) ;  ?>' ) 6 6 ,cell" data-exists="<?php _e($existStatus); ?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>">
+		<?php
+	} else if( $optionChosen == '4' ){ ?>
+			<span class="wish-box  hidden  wish-box_hover" style = " cursor:url('<?php _e($heart_url) ;  ?>' ) 6 6 ,cell" data-exists="<?php _e($existStatus); ?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>">
+		<?php
+	}
+}
+ ?>
+ //$user_id=substr(get_the_title($post_id),10 ) ;
+ //echo $user_id;
+ //$user_info= get_userdata($user_id);
+ //$to = sanitize_email($user_info->user_email);
+
+ //$options = get_option( 'wlwhplugin_email_settings' );
+ //$subject = sanitize_text_field($options['wlwh_email_subject']);
+ //$message1 = sanitize_textarea_field($options['wlwh_email_content_before']);
+ //$message2 = sanitize_textarea_field($options['wlwh_email_content_after']);
+
+
+ //$currentproduct = wc_get_product( $productId );
+ //$currentThumbnail = get_the_post_thumbnail( $productId, array(100,100) );
+ //$currentTitle = $currentproduct->get_title();
+ //$currentPrice = $currentproduct->get_price_html();
+ //$productDetails = $currentThumbnail."  ".$currentTitle."  ".$currentPrice;
+
+ //$message = $message1."<br>".$productDetails."<br>".$message2;

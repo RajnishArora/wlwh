@@ -37,25 +37,22 @@ if( !class_exists('wlwh_show_hearts')){
 						 $logged = 'no';
 					}
 					$heart_url =  WLWHPLUGIN_URL .'assets/heart.png';
+					$optionChosen = 1;
+					if( isset( $this->options['heart_place'] ) ) {
+							$optionChosen = sanitize_text_field($this->options['heart_place']);
+					}
 
 				?>
-				<span class="wish-box wish-box_hover" style = " cursor:url('<?php _e($heart_url) ;  ?>' ) 6 6 ,cell" data-exists="<?php _e($existStatus); ?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>">
+				<span class="wish-box hidden wish-box-topleft wish-box_hover" style = " cursor:url('<?php _e($heart_url) ;  ?>' ) 6 6 ,cell" data-exists="<?php _e($existStatus); ?>"  data-place ="<?php _e($optionChosen);?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>" >
 						<i class = "fa fa-heart-o "></i>
 						<i class = "fa fa-heart"></i>
-
 						<span class = "added-wish hidden">
-								<?php
-									_e($this->options['wlwh_toast']);
-								 ?>
-
+								<?php _e($this->options['wlwh_toast']);	 ?>
 						</span>
 						<span class = "deleted-wish hidden">
 								Deleted from wish list
 						</span>
-
 				</span>
-
-
 			<?php
 		} // function wlwhplugin_add_wishbox_markup
 
@@ -71,9 +68,7 @@ if( isset( $options[ 'other_checkbox' ] ) ) {
 }
 
 // this is just before the image
-// to add just after icrease the priority to 15 or so
+// to add just after increase the priority to 15 or so
 if( isset( $options[ 'single_checkbox' ] ) ) {
 	add_action('woocommerce_before_single_product_summary', array($wlwhplugin_wishbox_markup,'wlwhplugin_add_wishbox_markup'),30);
-
-//	add_action('woocommerce_product_thumbnails', array($wlwhplugin_wishbox_markup,'wlwhplugin_add_wishbox_markup'),30);
 }

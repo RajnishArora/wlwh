@@ -21,10 +21,9 @@ class wlwh_create_cpt{
                       'show_ui' => true,
                       'show_in_menu'  => true,
                       'labels' => array(
-                        'name' => _x('Wish Lists','post type general name','wlwhplugin'),
-                        'singular_name' => _x('Wish List','post type singular name','wlwhplugin'),
-                        'add_new_item' => __('Add User','wlwhplugin'),
-                        'all_items' => __('All Users','wlwhplugin')
+                          'name' => _x('Wish Lists','post type general name','wlwhplugin'),
+                          'singular_name' => _x('Wish List','post type singular name','wlwhplugin'),
+                          'all_items' => __('All Users','wlwhplugin')
 
                       ),
                       'menu_icon' => 'dashicons-heart'

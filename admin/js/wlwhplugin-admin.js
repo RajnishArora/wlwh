@@ -35,25 +35,23 @@ class Switch{
 
         evtDet = $(e.target);
 
-        if(e.target.id =='emailbutton'){
+        if(evtDet.hasClass('emailbutton') ){
           temp = evtDet.data("productid");
           postid = evtDet.data("postid");
-
-
           //console.log( evtDet.parent().parent());
           evtDet.parent().parent().next(".modal").removeClass("hidden");
 
-        }else if(e.target.id == 'cancelupper'  ){
+      }else if(evtDet.hasClass('cancelupper') ){
           //$(e.target).parent().parent().addClass("hidden");
           $(e.target).parent().parent().parent().addClass("hidden");
         }
 
-        else if(e.target.id == 'cancelbtn'  ){
+        else if(evtDet.hasClass('cancelbtn')  ){
           $(e.target).parent().parent().addClass("hidden");
           //$(e.target).parent().parent().parent().addClass("hidden");
-        } else if( e.target.id == 'okbtn'){
-                  this.mailto = $("#mailto");
-                  this.subject = $("#mailsub");
+        } else if( evtDet.hasClass( 'okbtn') ){
+                  this.mailto = $(".mailto");
+                  this.subject = $(".mailsub");
                   this.msgcontent = $("#createmetaboxmsg");
                 //  var mailmsg = this.msgcontent.html();
                 //  alert(this.mailto.val());
