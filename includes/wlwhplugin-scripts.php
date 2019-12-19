@@ -21,9 +21,9 @@ function wlwhplugin_frontend_scripts() {
     'wlwhplugin-frontend', WLWHPLUGIN_URL . 'frontend/js/wlwhplugin-wishlist.js', [], time(),true
   );
 
-  wp_enqueue_script(
-    'wlwhplugin-frontend-wishbox', WLWHPLUGIN_URL . 'frontend/js/wlwhwishbox-placer.js', [], time(),true
-  );
+//  wp_enqueue_script(
+//    'wlwhplugin-frontend-wishbox', WLWHPLUGIN_URL . 'frontend/js/wlwhwishbox-placer.js', [], time(),true
+//  );
 
   wp_localize_script('wlwhplugin-frontend', 'wlwhData', array(
       'pluginsUrl' => plugins_url(),

@@ -58,7 +58,7 @@ if( !class_exists('wlwh_create_button')){
 }
 
 $wlwh_button_object = new wlwh_create_button;
-$options = get_option( 'wlwhplugin_settings' );
+//$options = get_option( 'wlwhplugin_settings' );
 
 if( isset( $options[ 'show_button' ] ) ) {
 		add_action( 'woocommerce_after_add_to_cart_button', array($wlwh_button_object , 'wlwh_add_button') );

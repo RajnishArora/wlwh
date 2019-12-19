@@ -50,7 +50,7 @@ function wlwhplugin_settings() {
         // Checkbox Field
         add_settings_field(
           'wlwhplugin_show_button_checkbox',
-          __( 'Add to WishList (button) ', 'wlwhplugin'),
+          __( 'Show Button ', 'wlwhplugin'),
           'wlwhplugin_show_button_checkbox_callback',
           'wlwhplugin',
           'wlwhplugin_settings_section',
@@ -74,12 +74,33 @@ function wlwhplugin_settings() {
             ]
           );
 
+          // Input Text Field
+          add_settings_field(
+                  // Unique identifier for field
+                  'wlwhplugin_correction_text',
+                  // Field Title
+                  __( 'Correction in Placement(if needed) ', 'wlwhplugin'),
+                  // Callback for field markup
+                  'wlwhplugin_correction_text_callback',
+                  // Page to go on
+                  'wlwhplugin',
+                  // Section to go in
+                  'wlwhplugin_settings_section',
+
+                  [
+                    'option_left' => 'Left Correction',
+                    'option_top' => 'Top Correction'
+                  ]
+          );
+
+
+
         // Input Text Field
         add_settings_field(
                 // Unique identifier for field
                 'wlwhplugin_button_text',
                 // Field Title
-                __( 'Add to WishList Button Text ', 'wlwhplugin'),
+                __( 'Button(Add to WishList button) Text ', 'wlwhplugin'),
                 // Callback for field markup
                 'wlwhplugin_button_text_callback',
                 // Page to go on
@@ -96,7 +117,7 @@ function wlwhplugin_settings() {
                 // Unique identifier for field
                 'wlwhplugin_toast_text',
                 // Field Title
-                __( 'Add to WishList Toast Text ', 'wlwhplugin'),
+                __( 'Toast(Added to WishList) Text ', 'wlwhplugin'),
                 // Callback for field markup
                 'wlwhplugin_toast_text_callback',
                 // Page to go on
@@ -118,20 +139,6 @@ function wlwhplugin_settings() {
         // Section to go in
         'wlwhplugin_settings_section'
       );
-
-/*
-    // Checkbox Field
-    add_settings_field(
-      'wlwhplugin_description_selector_checkbox',
-      __( 'Choose which Description to show on WishList Page', 'wlwhplugin'),
-      'wlwhplugin_description_selector_checkbox_callback',
-      'wlwhplugin',
-      'wlwhplugin_settings_section',
-      [
-        'label' => ' '
-      ]
-    );
-*/
 
   // Radio Field
   add_settings_field(
@@ -171,7 +178,7 @@ function wlwhplugin_settings_label_text_callback() {
 		$wlwh_label = esc_html( $options['wlwh_label'] );
 	}
 
-  _e( '<input type="text" id="wlwhplugin_labeltext" name="wlwhplugin_settings[wlwh_label]" value="' . $wlwh_label . '" />' );
+  _e( '<input type="text" id="wlwhplugin_labeltext" name="wlwhplugin_settings[wlwh_label]" size="25" value="' . $wlwh_label . '" />' );
 
 }
 
@@ -234,7 +241,7 @@ function wlwhplugin_button_text_callback() {
 	if( isset( $options[ 'wlwh_buttontext' ] ) ) {
 		$wlwh_buttontext = esc_html( $options['wlwh_buttontext'] );
 	}
-  _e( '<input type="text" id="wlwhplugin_buttontext" name="wlwhplugin_settings[wlwh_buttontext]" value="' . $wlwh_buttontext . '" />' );
+  _e( '<input type="text" id="wlwhplugin_buttontext" name="wlwhplugin_settings[wlwh_buttontext]" size="25" value="' . $wlwh_buttontext . '" />' );
 }
 
 
@@ -246,7 +253,7 @@ function wlwhplugin_toast_text_callback() {
 	if( isset( $options[ 'wlwh_toast' ] ) ) {
 		$wlwh_toast = esc_html( $options['wlwh_toast'] );
 	}
-  _e( '<input type="text" id="wlwhplugin_toasttext" name="wlwhplugin_settings[wlwh_toast]" value="' . $wlwh_toast . '" />' );
+  _e( '<input type="text" id="wlwhplugin_toasttext" name="wlwhplugin_settings[wlwh_toast]" maxlength="25" size="25" value="' . $wlwh_toast . '" />' );
 }
 
 
@@ -288,4 +295,28 @@ function wlwhplugin_heart_place_radio_callback( $args ) {
 
   _e($html);
 	//echo $html;
+}
+
+
+function wlwhplugin_correction_text_callback() {
+
+  $options = get_option( 'wlwhplugin_settings' );
+
+	$wlwh_correction_left = '';
+	if( isset( $options[ 'wlwh_correction_left' ] ) ) {
+		$wlwh_correction_left = esc_html( $options['wlwh_correction_left'] );
+	}
+
+  $wlwh_correction_right = '';
+	if( isset( $options[ 'wlwh_correction_right' ] ) ) {
+		$wlwh_correction_right = esc_html( $options['wlwh_correction_right'] );
+	}
+
+  $html = '<input type="number" id="wlwhplugin_correction_lefttext" name="wlwhplugin_settings[wlwh_correction_left]" min="-999" max="999" value="' . $wlwh_correction_left . '" />';
+  $html .= ' <label for="wlwhplugin_correction_lefttext">'. "Left Correction" .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= '<input type="number" id="wlwhplugin_correction_righttext" name="wlwhplugin_settings[wlwh_correction_right]" min="-999" max="999" value="' . $wlwh_correction_right . '" />';
+  $html .= ' <label for="wlwhplugin_settings_correction_text">'. "Top Correction " .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
+  _e($html);
+  //_e( '<input type="number" id="wlwhplugin_correction_lefttext" name="wlwhplugin_settings[wlwh_correction_left]" maxlength="4" size="4" value="' . $wlwh_correction_left . '" />' );
 }

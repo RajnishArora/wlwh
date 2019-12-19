@@ -46,12 +46,15 @@ if( !class_exists('wlwh_show_hearts')){
 				<span class="wish-box hidden wish-box-topleft wish-box_hover" style = " cursor:url('<?php _e($heart_url) ;  ?>' ) 6 6 ,cell" data-exists="<?php _e($existStatus); ?>"  data-place ="<?php _e($optionChosen);?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>" >
 						<i class = "fa fa-heart-o "></i>
 						<i class = "fa fa-heart"></i>
-						<span class = "added-wish hidden">
-								<?php _e($this->options['wlwh_toast']);	 ?>
-						</span>
-						<span class = "deleted-wish hidden">
-								Deleted from wish list
-						</span>
+				</span>
+				<div class = "added-wish hidden">
+						<?php _e($this->options['wlwh_toast']);	 ?>
+				</div>
+				<span class = "left_correction hidden">
+						<?php _e(sanitize_text_field( $this->options['wlwh_correction_left']));	 ?>
+				</span>
+				<span class = "right_correction hidden">
+						<?php _e(sanitize_text_field( $this->options['wlwh_correction_right']));	 ?>
 				</span>
 			<?php
 		} // function wlwhplugin_add_wishbox_markup
@@ -62,6 +65,7 @@ if( !class_exists('wlwh_show_hearts')){
 
 $wlwhplugin_wishbox_markup = new wlwh_show_hearts;
 $options = get_option( 'wlwhplugin_settings' );
+
 
 if( isset( $options[ 'other_checkbox' ] ) ) {
 	add_action('woocommerce_before_shop_loop_item_title', array($wlwhplugin_wishbox_markup,'wlwhplugin_add_wishbox_markup'),30);

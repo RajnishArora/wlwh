@@ -79,7 +79,7 @@ if( !class_exists('wlwh_create_metabox')){
 							$message2 = sanitize_textarea_field($options['wlwh_email_content_after']);
 							$products_url = get_permalink($wishListId);
 	//						$currentDetails = '<div> Hello php </div> ';
-							$productDetails = "<a id ='product_a'>".$currentThumbnail."<br>".$currentTitle."<br>".$currentPrice."</a>";
+							$productDetails = "<a id ='product_a' href=\"$products_url \">".$currentThumbnail."<br>".$currentTitle."<br>".$currentPrice."</a>";
 	//						$productDetails = $currentThumbnail.$currentDetails;
 							$message = "<br>".$message1."<br><br>".$productDetails."<br><br>".$message2."<br>";
 							?>

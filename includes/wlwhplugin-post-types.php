@@ -1,5 +1,6 @@
 <?php
 
+
 if( !class_exists('wlwh_create_cpt')){
 
 class wlwh_create_cpt{
@@ -20,12 +21,20 @@ class wlwh_create_cpt{
                       'public' => true,
                       'show_ui' => true,
                       'show_in_menu'  => true,
+                      'capability_type' => 'post',
+                      'capabilities'  => array(
+                            'create_posts' => false
+                      ),
+                      'map_meta_cap'  => true,
                       'labels' => array(
                           'name' => _x('Wish Lists','post type general name','wlwhplugin'),
                           'singular_name' => _x('Wish List','post type singular name','wlwhplugin'),
                           'all_items' => __('All Users','wlwhplugin')
 
                       ),
+                      'exclude_from_search' => true,
+                      'publicly_queryable'  => false,
+                      'query_var'           => false,
                       'menu_icon' => 'dashicons-heart'
                ));
 

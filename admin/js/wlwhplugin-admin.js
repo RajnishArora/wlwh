@@ -12,11 +12,33 @@ class Switch{
       this.waiting ;
       this.msgcontent;
       this.subject;
+      this.makeReadOnly();
       this.events();
   }
 
 
+makeReadOnly(){
+         document.addEventListener("DOMContentLoaded", function(e) {
+              let inputboxes = document.getElementsByTagName('input');
+              console.log(inputboxes.length);
+              let i=0 , j=0;
 
+              let found = false;
+              let reg=/wlwh_user_/;
+              while (i< inputboxes.length && found == false){
+                  found = reg.test(inputboxes[i].value);
+                  j=i;
+                  i++;
+                }
+              if(found){
+                inputboxes[j].setAttribute('readonly', true)
+                inputboxes[i].setAttribute('readonly', true)
+                // should have been j but its actually i
+              }
+
+        });
+
+}
 
   events(){
       var evtDet;
@@ -105,6 +127,7 @@ class Switch{
 
     }
   }); // eventlistener
+
   }  //events
 
 }

@@ -15,6 +15,7 @@ class WishBoxPlacer {
 			let place = $(allWishBoxes[0]).attr('data-place');
 			//alert(place);
 			for(i=0; i<allWishBoxes.length; i++){
+
 				let displayImage = $(allWishBoxes[i]).parent().find('img');
 				if(displayImage.length < 0 ){
 						$(allWishBoxes[i]).removeClass("hidden");
@@ -28,9 +29,9 @@ class WishBoxPlacer {
 
 					let posImg = displayImage.offset();
 					let leftPos = posImg.left + dImgWidth*0.1;
-					let rightPos =   posImg.left + dImgWidth*0.85;
+					let rightPos =   posImg.left + dImgWidth*0.87;
 					let topPos = posImg.top +  dImgHeight*0.1;
-					let bottomPos =posImg.top + dImgHeight*0.85;
+					let bottomPos =posImg.top + dImgHeight*0.87;
 					$(allWishBoxes[i]).removeClass("hidden");
 					$(allWishBoxes[i]).removeClass("wish-box-topleft");
 					let leftPlace = leftPos;
@@ -54,6 +55,9 @@ class WishBoxPlacer {
 
 			}
 		}
+
+
+
 			events(){
 
 			}

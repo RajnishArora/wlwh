@@ -28,6 +28,10 @@ if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', 
 define( 'WLWHPLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WLWHPLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
+//$options = get_option( 'wlwhplugin_settings' );
+//Can use these globally but i have used $options for email options also
+// will do it later
+
 // Create Settings Fields
 //include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-settings-fields.php');
 include( WLWHPLUGIN_DIR . 'includes/wlwhplugin-settings-fields.php');

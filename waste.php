@@ -329,3 +329,114 @@ if( isset( $this->options['heart_place'] ) ) {
  //$productDetails = $currentThumbnail."  ".$currentTitle."  ".$currentPrice;
 
  //$message = $message1."<br>".$productDetails."<br>".$message2;
+
+
+ /******************************
+    WISH LIST
+ ******************************/
+
+
+ .wish-box{
+       /*  height: 20px;
+     width: 20px;
+   */
+     color: #ff0000;
+     font-size:1.5rem;
+     z-index: 100;
+ }
+
+ .wish-box-topleft{
+     position: absolute;
+     left: 20px;
+     top: 20px;
+ }
+
+ .wish-box_hover{
+   transform: rotate(30deg);
+ }
+
+ .wish-box:hover {
+         transform: scale(1.4,1.4) !important;
+ }
+
+ .wish-box .fa-heart {
+     position: absolute;
+     visibility: hidden;
+     transition: all .1s ease-out;
+     transform: scale(.2);
+     opacity: 0;
+ }
+
+ .fa-heart{
+     left: 0;
+ }
+
+ .wish-box .fa-heart-o {
+     left: 0;
+     position: absolute;
+ }
+
+ .wish-box[data-exists="yes"] .fa-heart {
+     position: absolute;
+     transform: scale(1);
+     visibility: visible;
+     opacity: 1;
+ }
+
+ .wish-box[data-exists="yes"] .fa-heart-o {
+     position: absolute;
+     visibility: hidden;
+     opacity: 0;
+ }
+
+ .wish-button{
+     background-color: #e8e8eb;
+     margin-left: 12px;
+     margin-right: auto;
+     margin-top: auto;
+     margin-bottom: auto;
+     color: #000000;
+     padding: 12px;
+     box-sizing: border-box;
+     cursor: pointer;
+ }
+
+ .wish-button:hover{
+     color: #ff0000;
+ }
+
+ .added-wish {
+   position: relative;
+   left: 30px;
+   top: -10px;
+   color: #ff0000;
+   font-size:1rem;
+
+ }
+
+
+ .hidden  {
+   display: none;
+ }
+
+ .show {
+   display: block;
+ }
+
+ .wish-header {
+   text-align: center;
+ }
+
+ transition: all .1s ease-out;
+ transform: scale(.2);
+
+
+
+ //		console.log(currentWishBox.attr('data-exists'));
+
+ //currentWishBox.html( `
+ //                      <i class = "fa fa-heart-o "></i>
+ //                      <i class = "fa fa-heart"></i>
+ //                      `);
+ //let textToDisplay = $(allWishBoxes[i]).next('span');
+ //console.log(textToDisplay)
