@@ -10,8 +10,6 @@ if( !class_exists('wlwh_show_hearts')){
 		}
 
 
-
-
 		function wlwhplugin_add_wishbox_markup(){
 					$existStatus = 'no';
 					$wishpostId = 0;
@@ -21,7 +19,6 @@ if( !class_exists('wlwh_show_hearts')){
 
 					$wishpost = get_page_by_title($userTitle, '' , 'wish');
 					$wishpostId = $wishpost->ID;
-
 
 					if ( $wishpostId ){ 		//means wish list exists
 						$prvproductId = get_post_meta($wishpostId,'wishids',true);
@@ -36,7 +33,7 @@ if( !class_exists('wlwh_show_hearts')){
 					} else {
 						 $logged = 'no';
 					}
-					$heart_url =  WLWHPLUGIN_URL .'assets/heart.png';
+					$heart_url =  esc_url(WLWHPLUGIN_URL .'assets/heart.png');
 					$optionChosen = 1;
 					if( isset( $this->options['heart_place'] ) ) {
 							$optionChosen = sanitize_text_field($this->options['heart_place']);
@@ -48,7 +45,7 @@ if( !class_exists('wlwh_show_hearts')){
 						<i class = "fa fa-heart"></i>
 				</span>
 				<div class = "added-wish hidden">
-						<?php _e($this->options['wlwh_toast']);	 ?>
+						<?php _e(sanitize_text_field($this->options['wlwh_toast']));	 ?>
 				</div>
 				<span class = "left_correction hidden">
 						<?php _e(sanitize_text_field( $this->options['wlwh_correction_left']));	 ?>

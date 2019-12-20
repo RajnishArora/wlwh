@@ -18,10 +18,45 @@ class WishList {
 			this.leftCorrection =0;
 			this.rightCorrection=0;
 
+			this.di;
 
 		  this.place_wishboxes();
+			//this.resize_handler();
       this.events();
 	}
+
+
+
+
+
+		show_toast(currentWishBox){
+			console.log("show_toast called")
+			let wishAdded = currentWishBox.next(".added-wish");
+			let cwbOffest = currentWishBox.offset();
+			let cwbTop = cwbOffest.top;
+			let cwbLeft = cwbOffest.left;
+			cwbTop -=4;
+
+			if(this.place == '1' || this.place == '3'){
+					cwbLeft += 30;
+			} else if(this.place == '2' || this.place == '4'){
+					cwbLeft -= 180;
+			}
+			$(wishAdded[0]).removeClass("hidden");
+			$(wishAdded[0]).offset({left: cwbLeft ,top: cwbTop});
+			currentWishBox.removeClass("wish-box_hover");
+
+			window.onscroll = function (e){
+					$(wishAdded[0]).addClass("hidden");
+			}
+
+			setTimeout( function(){
+						wishAdded.addClass("hidden");
+						currentWishBox.addClass("wish-box_hover");
+					},
+					3000);
+
+		}
 
 
 		place_wishboxes(){
@@ -43,6 +78,7 @@ class WishList {
 				//alert(this.rightCorrection);
 
 				for(i=0; i<allWishBoxes.length; i++){
+					this.di = $(allWishBoxes[i]).parent().find('img');
 					let displayImage = $(allWishBoxes[i]).parent().find('img');
 					if(displayImage.length < 0 ){
 							$(allWishBoxes[i]).removeClass("hidden");
@@ -93,6 +129,7 @@ class WishList {
     this.wishBox.on("click", this.ourClickDispatcher.bind(this));
     this.trashBox.on("click", this.ourTrashWish.bind(this));
     this.singleWishBox.on("click", this.singleProductAddWish.bind(this));
+		$(window).on("resize",this.place_wishboxes.bind(this));
 		//this.singleWishBox.on("click", this.ourClickDispatcher.bind(this));
 
   	}
@@ -125,8 +162,6 @@ class WishList {
 					alert("Please log in to create a wish list");
 					// not logged;
 		}
-
-
     //currentWishBox.html('<div class="filter_loading"> <img src="'+crockeryData.theme_uri+'/images/loading_spinner.gif" alt="" /></div>');
     $.ajax({
       beforeSend: (xhr) => {
@@ -137,30 +172,7 @@ class WishList {
       data: {'productId': currentWishBox.data('product-id') },
       success: (response) => {
 				currentWishBox.attr('data-exists', 'yes');
-				let wishAdded = currentWishBox.next(".added-wish");
-				let cwbOffest = currentWishBox.offset();
-				let cwbTop = cwbOffest.top;
-				let cwbLeft = cwbOffest.left;
-				cwbTop -=4;
-				if(this.place == '1' || this.place == '3'){
-						cwbLeft += 30;
-				} else if(this.place == '2' || this.place == '4'){
-						cwbLeft -= 180;
-				}
-				wishAdded.removeClass("hidden");
-				$(wishAdded).offset({left: cwbLeft ,top: cwbTop});
-				currentWishBox.removeClass("wish-box_hover");
-
-				window.onscroll = function (e){
-				    wishAdded.addClass("hidden");
-				}
-
-				setTimeout( function(){
-							wishAdded.addClass("hidden");
-							currentWishBox.addClass("wish-box_hover");
-						},
-						3000);
-
+				this.show_toast(currentWishBox);
       },
       error: (response) => {
 				currentWishBox.attr('data-exists', oldStatus);
@@ -184,13 +196,7 @@ class WishList {
 	      data: {'productId': currentWishBox.data('product-id') },
 	      type: 'DELETE',
 	      success: (response) => {
-        //  currentWishBox.html( `
-        //                      <i class = "fa fa-heart-o "></i>
-        //                      <i class = "fa fa-heart"></i>
-        //                      `);
-
-	        //currentWishBox.attr('data-exists', 'no');
-					console.log(currentWishBox.attr('data-exists'));
+        	console.log(currentWishBox.attr('data-exists'));
 	        //console.log(response);
 	      },
 	      error: (response) => {
@@ -217,6 +223,7 @@ singleProductAddWish(e){
 				let oldStatus = currentWishBox.attr('data-exists');
 
 				let status = currentWishBox.attr('data-exists');
+				// let status = oldStatus'
 				//console.log(status);
         //var status = evtDet.data("singleexiststatus");
 				//alert(status);
@@ -233,15 +240,9 @@ singleProductAddWish(e){
               type: 'POST',
               data: {'productId': temp },
               success: (response) => {
-                //this.singleWishBox.attr("data-singleexiststatus",'yes');
 								currentWishBox.attr('data-exists', 'yes');
-//								currentWishBox.html( `
-//			                              <i class = "fa fa-heart-o "></i>
-//			                              <i class = "fa fa-heart"></i>
-//			                              `);
-                //alert("Added to wishlist");
-               // rest baad mein
-                console.log(response);
+								this.show_toast(currentWishBox);
+
               },
               error: (response) => {
 								currentWishBox.attr('data-exists', oldStatus);

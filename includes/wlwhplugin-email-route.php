@@ -40,7 +40,7 @@ function sendMail($data) {
 														'class'	=> array()
 										 )
 									);
-		//wp_kses($str,$arr);
+		//wp_kses($str,$arr) ends;
 
     $productId = sanitize_text_field($data['productId']);
 		$post_id = sanitize_text_field($data['postId']);
@@ -48,9 +48,6 @@ function sendMail($data) {
 		$subject = sanitize_text_field($data['mailsub']);
 		$message = wp_kses($data['emailmsg'] , $allowed_html);
 		$headers = array('Content-Type: text/html; charset=UTF-8');
-		// show it to user before sending so that he can edit
-		// pending because of sanitaion issues
-		//use wp_kses and wp_kses_allowed_html
 		$mailSent = wp_mail( $to, $subject, $message, $headers );
 		return $mailSent;
 }

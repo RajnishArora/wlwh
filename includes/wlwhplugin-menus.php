@@ -50,7 +50,6 @@ function wlwhplugin_settings_pages()
     'wlwhplugin_email_page_markup'
   );
 }
-//add_action( 'admin_menu', 'wlwhplugin_settings_pages' );
 add_action( 'admin_menu', 'wlwhplugin_settings_pages' );
 
 

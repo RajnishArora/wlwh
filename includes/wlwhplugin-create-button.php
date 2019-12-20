@@ -41,7 +41,7 @@ if( !class_exists('wlwh_create_button')){
 				<span class="single-addtowishList wish-button" data-singleproductid="<?php _e($id); ?>" data-singleexiststatus = "<?php _e($x); ?>" >
 						<?php
 						if( isset( $this->options[ 'wlwh_buttontext' ] )  && $this->options['wlwh_buttontext'] != '') {
-						  	_e($this->options['wlwh_buttontext']);
+						  	_e(sanitize_text_field($this->options['wlwh_buttontext']));
 						} else {
 								_e("Add to WishList");
 						}

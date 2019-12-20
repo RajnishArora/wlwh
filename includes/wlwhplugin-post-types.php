@@ -12,8 +12,6 @@ class wlwh_create_cpt{
    public function create_cpt() {
     //  Post Type
 
-    // this variable controls whether to shoe in dashboard
-    $show_checkbox = true;
 
         if( !post_type_exists('wish') ){
                 register_post_type('wish', array(

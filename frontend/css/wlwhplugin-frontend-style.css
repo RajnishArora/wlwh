@@ -82,7 +82,9 @@
   position: fixed;
   text-align: left;
   color: #ff0000;
-  font-size:1rem;
+  font-weight: 300;
+  font-size: 1em;
+  font-style: normal;
 }
 
 
@@ -91,7 +93,7 @@
 }
 
 .show {
-  display: block;
+
 }
 
 .wish-header {
