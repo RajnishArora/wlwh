@@ -497,3 +497,75 @@ if( isset( $this->options['heart_place'] ) ) {
 		$phpmailer->From       = SMTP_FROM;
 		$phpmailer->FromName   = SMTP_NAME;
 	});
+
+	<?php
+	/**
+	 * @package
+	 *
+	 */
+	add_shortcode('wlwh_add_button', function($atts,$content){
+			$atts = shortcode_atts(
+					array(
+							'btntext'	=> 'Add to Wishlist',
+
+					), $atts
+			);
+
+			extract($atts);
+			if ( !isset($wlwh_button_object) ){
+	        $wlwh_button_object = new wlwh_create_button;
+	        //$rvp_view_object = new rvp_view_list;
+			}
+
+			return $wlwh_button_object->wlwh_add_shortcode_button($btntext);
+	});
+
+
+	/*
+					public function wlwh_add_shortcode_button($str){
+							global $product;
+						  $id = $product->get_id();
+						  $currentproduct = wc_get_product( $id );
+							$x= $this->check_wish_status();
+
+							?>
+							<div class="single-addtowishList wish-button" data-singleproductid="<?php _e($id); ?>" data-singleexiststatus = "<?php _e($x); ?>" >
+									<?php
+											_e($str);
+
+
+									?>
+							</div>
+							<?php
+					}
+	*/
+
+
+	<?php
+
+	public function wlwh_add_shortcode_button(){
+	  if( is_product()){
+	    $wlwh_button_object = new wlwh_create_button;
+
+	    global $product;
+	    $str;
+	    $id = $product->get_id();
+	    $currentproduct = wc_get_product( $id );
+	    $x= $wlwh_button_object->check_wish_status();
+	    $str = "Add to Wish List";
+	    $options = get_option( 'wlwhplugin_settings' );
+	    if( isset( $options[ 'wlwh_buttontext' ] ) ) {
+	  		$str = sanitize_text_field( $options['wlwh_buttontext'] );
+	  	}
+
+
+	    ?>
+	    <div class="single-addtowishList wish-button" data-singleproductid="<?php _e($id); ?>" data-singleexiststatus = "<?php _e($x); ?>" >
+	        <?php
+	            _e($str);
+	        ?>
+	    </div>
+	    <?php
+	  }
+
+	}

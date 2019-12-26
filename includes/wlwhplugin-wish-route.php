@@ -27,7 +27,7 @@ function createWish($data) {
 
 		if ( $wishpostId ){ 		//wish list exists so append
 			//$wishpostId = $wishpost->ID;
-			$prvWishId = get_post_meta($wishpostId,'wishids',true);
+			$prvWishId =sanitize_text_field(get_post_meta($wishpostId,'wishids',true));
 			if($prvWishId){
 				$wishIdStr= $prvWishId.",".$productId ;
 			} else {
@@ -48,7 +48,7 @@ function createWish($data) {
 				//'post_title' => 'PHP title post test',
 				'post_title' => $userTitle,
 				'meta_input' => array(
-					'wishids' => $wishIdStr
+					'wishids' => sanitize_text_field($wishIdStr)
 
 				)
 			));
@@ -98,7 +98,7 @@ if (is_user_logged_in()){
 		$wishpostId = $wishpost->ID;
 
 		if ( $wishpostId ){  // wish list exists so delete this product id
-			$prvproductId = get_post_meta($wishpostId,'wishids',true);
+			$prvproductId = sanitize_text_field(get_post_meta($wishpostId,'wishids',true));
 			$arrayofWishListIds = explode(',',$prvproductId);
 			// remove the entry of $productId from array and implode
 
@@ -107,7 +107,7 @@ if (is_user_logged_in()){
     			unset($arrayofWishListIds[$key]);
 			}
 
-			$strWishLishUpdated =  implode(",",$arrayofWishListIds);
+			$strWishLishUpdated =  sanitize_text_field(implode(",",$arrayofWishListIds));
 
 
 			update_post_meta($wishpostId,'wishids',$strWishLishUpdated);

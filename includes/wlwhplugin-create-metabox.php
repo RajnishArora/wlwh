@@ -37,7 +37,7 @@ if( !class_exists('wlwh_create_metabox')){
 						//$str = date("l jS \of F Y h:i:s A");
 						//echo $str;
 						$wishString  = $custom["wishids"][0] ;
-						$wishListIds = explode(',',$wishString);
+						$wishListIds = array_reverse(explode(',',$wishString));
 						$options = get_option( 'wlwhplugin_email_settings' );
 
 						foreach ($wishListIds as $wishListId) {

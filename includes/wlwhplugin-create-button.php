@@ -32,13 +32,13 @@ if( !class_exists('wlwh_create_button')){
 
 
 		public function wlwh_add_button(){
-			 global $product; $id = $product->get_id();
+				global $product;
+			  $id = $product->get_id();
 			  $currentproduct = wc_get_product( $id );
-
 				$x= $this->check_wish_status();
 
 				?>
-				<span class="single-addtowishList wish-button" data-singleproductid="<?php _e($id); ?>" data-singleexiststatus = "<?php _e($x); ?>" >
+				<div class="single-addtowishList wish-button" data-singleproductid="<?php _e($id); ?>" data-singleexiststatus = "<?php _e($x); ?>" >
 						<?php
 						if( isset( $this->options[ 'wlwh_buttontext' ] )  && $this->options['wlwh_buttontext'] != '') {
 						  	_e(sanitize_text_field($this->options['wlwh_buttontext']));
@@ -47,19 +47,19 @@ if( !class_exists('wlwh_create_button')){
 						}
 
 						?>
-				</span>
-
-
+				</div>
 				<?php
 		}
-
 
   }
 }
 
 $wlwh_button_object = new wlwh_create_button;
-//$options = get_option( 'wlwhplugin_settings' );
+$options = get_option( 'wlwhplugin_settings' );
+
 
 if( isset( $options[ 'show_button' ] ) ) {
-		add_action( 'woocommerce_after_add_to_cart_button', array($wlwh_button_object , 'wlwh_add_button') );
+
+//		add_action( 'woocommerce_after_add_to_cart_button', array($wlwh_button_object , 'wlwh_add_button') );
+		add_action( 'woocommerce_product_meta_start', array($wlwh_button_object , 'wlwh_add_button'),2 );
 }

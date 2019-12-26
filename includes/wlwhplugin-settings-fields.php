@@ -1,5 +1,6 @@
 <?php
 
+
 function wlwhplugin_settings() {
   // If plugin settings don't exist, then create them
   if( false == get_option( 'wlwhplugin_settings' ) ) {
@@ -100,7 +101,7 @@ function wlwhplugin_settings() {
                 // Unique identifier for field
                 'wlwhplugin_button_text',
                 // Field Title
-                __( 'Button(Add to WishList button) Text ', 'wlwhplugin'),
+                __( 'Button Text (Add to WishList button)  ', 'wlwhplugin'),
                 // Callback for field markup
                 'wlwhplugin_button_text_callback',
                 // Page to go on
@@ -149,7 +150,8 @@ function wlwhplugin_settings() {
     'wlwhplugin_settings_section',
     [
       'option_one' => 'Short Description',
-      'option_two' => 'Long Description'
+      'option_two' => 'Long Description',
+      'option_three' => 'No Description'
     ]
   );
 
@@ -270,7 +272,10 @@ function wlwhplugin_description_selector_checkbox_callback( $args ) {
 	$html = '<input type="radio" id="wlwhplugin_settings_radio_one" name="wlwhplugin_settings[radio]" value="1"' . checked( 1, $radio, false ) . '/>';
 	$html .= ' <label for="wlwhplugin_settings_radio_one">'. $args['option_one'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 	$html .= '<input type="radio" id="wlwhplugin_settings_radio_two" name="wlwhplugin_settings[radio]" value="2"' . checked( 2, $radio, false ) . '/>';
-	$html .= ' <label for="wlwhplugin_settings_radio_two">'. $args['option_two'] .'</label>';
+	$html .= ' <label for="wlwhplugin_settings_radio_two">'. $args['option_two'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= '<input type="radio" id="wlwhplugin_settings_radio_three" name="wlwhplugin_settings[radio]" value="3"' . checked( 3, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_three">'. $args['option_three'] .'</label>';
+
   _e($html);
 	//echo $html;
 }
@@ -318,5 +323,5 @@ function wlwhplugin_correction_text_callback() {
   $html .= ' <label for="wlwhplugin_settings_correction_text">'. "Top Correction " .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
   _e($html);
-  //_e( '<input type="number" id="wlwhplugin_correction_lefttext" name="wlwhplugin_settings[wlwh_correction_left]" maxlength="4" size="4" value="' . $wlwh_correction_left . '" />' );
+
 }

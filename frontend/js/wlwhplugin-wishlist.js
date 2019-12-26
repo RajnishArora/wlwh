@@ -7,6 +7,7 @@ class WishList {
 	//				alert("about to be reloaded ");
 					location.reload(true);
 			}
+
 			this.wishBox = $(".wish-box");
       this.trashBox = $(".trashwishitem");
       this.singleWishBox = $(".single-addtowishList") ;
@@ -20,17 +21,16 @@ class WishList {
 
 			this.di;
 
-		  this.place_wishboxes();
-			//this.resize_handler();
       this.events();
 	}
 
 
+	place_wishboxes_firsttime(){
 
-
+	}
 
 		show_toast(currentWishBox){
-			console.log("show_toast called")
+		//	console.log("show_toast called")
 			let wishAdded = currentWishBox.next(".added-wish");
 			let cwbOffest = currentWishBox.offset();
 			let cwbTop = cwbOffest.top;
@@ -59,67 +59,80 @@ class WishList {
 		}
 
 
-		place_wishboxes(){
-				let i=0;
-				let allWishBoxes = document.getElementsByClassName("wish-box");
-				if ( allWishBoxes.length < 0) return;
-				//console.log(allWishBoxes[0]);
-				this.place = $(allWishBoxes[0]).attr('data-place');
-				let lc= document.getElementsByClassName("left_correction");
-				if(lc.length > 0){
-						this.leftCorrection = Number(lc[0].innerText);
-				}
-
-				let rc= document.getElementsByClassName("right_correction");
-				if(rc.length > 0){
-						this.rightCorrection = Number(rc[0].innerText);
-				}
-
-				//alert(this.rightCorrection);
-
-				for(i=0; i<allWishBoxes.length; i++){
-					this.di = $(allWishBoxes[i]).parent().find('img');
-					let displayImage = $(allWishBoxes[i]).parent().find('img');
-					if(displayImage.length < 0 ){
-							$(allWishBoxes[i]).removeClass("hidden");
-							console.log("Javascript placement fails, reverting to top left pos");
-						// let postioning of css take place ie on top left
-					} else {
-						let dImgWidth = displayImage.width();
-						let dImgHeight = displayImage.height();
-						//console.log(dImgWidth);
-						//console.log(dImgHeight);
-
-						let posImg = displayImage.offset();
-						let leftPos = posImg.left + dImgWidth*0.1;
-						let rightPos =   posImg.left + dImgWidth*0.87;
-						let topPos = posImg.top +  dImgHeight*0.1;
-						let bottomPos =posImg.top + dImgHeight*0.87;
-						$(allWishBoxes[i]).removeClass("hidden");
-						$(allWishBoxes[i]).removeClass("wish-box-topleft");
-						this.leftPlace = leftPos;
-						this.topPlace =topPos;
-						if(this.place == '1'){
-							this.leftPlace = leftPos;
-							this.topPlace =topPos;
-						} else if(this.place =='2'){
-							this.leftPlace = rightPos;
-							this.topPlace =topPos;
-						}else if (this.place =='3'){
-							this.leftPlace = leftPos;
-							this.topPlace =bottomPos;
-						}else if(this.place =='4'){
-							this.leftPlace = rightPos;
-							this.topPlace = bottomPos;
+		place_wishboxes( ){
+						//console.log("place called");
+						let i=0;
+						let allWishBoxes = document.getElementsByClassName("wish-box");
+						if ( allWishBoxes.length < 0) return;
+						//console.log(allWishBoxes[0]);
+						this.place = $(allWishBoxes[0]).attr('data-place');
+						let lc= document.getElementsByClassName("left_correction");
+						if(lc.length > 0){
+								this.leftCorrection = Number(lc[0].innerText);
 						}
-						this.leftPlace+= this.leftCorrection;
-						this.topPlace+= this.rightCorrection;
 
-						$(allWishBoxes[i]).offset({left: this.leftPlace,top: this.topPlace});
+						let rc= document.getElementsByClassName("right_correction");
+						if(rc.length > 0){
+								this.rightCorrection = Number(rc[0].innerText);
+						}
 
-					}
+						//alert(this.rightCorrection);
 
-				}
+						for(i=0; i<allWishBoxes.length; i++){
+							this.di = $(allWishBoxes[i]).parent().find('img');
+							let displayImage = $(allWishBoxes[i]).parent().find('img');
+							//console.log(displayImage[0]);
+							if(displayImage.length < 0 ){
+									$(allWishBoxes[i]).removeClass("hidden");
+									console.log("Javascript placement fails, reverting to top left pos");
+									$(allWishBoxes[i]).addClass("wish-box-topleft");
+									// let postioning of css take place ie on top left
+							} else {
+										$(displayImage[0]).one("load", function() {
+													  if(this.complete){
+																$(this).load();
+														}
+													});
+
+								let dImgWidth = $(displayImage[0]).width();
+								let dImgHeight = $(displayImage[0]).height();
+
+								let posImg = $(displayImage[0]).offset();
+
+
+								let leftPos = posImg.left + dImgWidth*0.1;
+								let rightPos =   posImg.left + dImgWidth*0.87;
+								let topPos = posImg.top +  dImgHeight*0.1;
+								let bottomPos =posImg.top + dImgHeight*0.87;
+								$(allWishBoxes[i]).removeClass("hidden");
+								$(allWishBoxes[i]).removeClass("wish-box-topleft");
+								this.leftPlace = leftPos;
+								this.topPlace =topPos;
+								if(this.place == '1'){
+									this.leftPlace = leftPos;
+									this.topPlace =topPos;
+								} else if(this.place =='2'){
+									this.leftPlace = rightPos;
+									this.topPlace =topPos;
+								}else if (this.place =='3'){
+									this.leftPlace = leftPos;
+									this.topPlace =bottomPos;
+								}else if(this.place =='4'){
+									this.leftPlace = rightPos;
+									this.topPlace = bottomPos;
+								}
+
+								this.leftPlace+= this.leftCorrection;
+								this.topPlace+= this.rightCorrection;
+
+								$(allWishBoxes[i]).offset({left: this.leftPlace,top: this.topPlace});
+
+							} // outer else ends
+
+						} 	// for ends
+
+				//});
+
 			}
 
 
@@ -129,6 +142,7 @@ class WishList {
     this.wishBox.on("click", this.ourClickDispatcher.bind(this));
     this.trashBox.on("click", this.ourTrashWish.bind(this));
     this.singleWishBox.on("click", this.singleProductAddWish.bind(this));
+		$(window).load(this.place_wishboxes.bind(this));
 		$(window).on("resize",this.place_wishboxes.bind(this));
 		//this.singleWishBox.on("click", this.ourClickDispatcher.bind(this));
 
@@ -160,6 +174,7 @@ class WishList {
 			currentWishBox.attr('data-exists', 'yes');
 		} else {
 					alert("Please log in to create a wish list");
+					return;
 					// not logged;
 		}
     //currentWishBox.html('<div class="filter_loading"> <img src="'+crockeryData.theme_uri+'/images/loading_spinner.gif" alt="" /></div>');

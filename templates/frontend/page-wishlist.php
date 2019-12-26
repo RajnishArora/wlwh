@@ -18,6 +18,8 @@ get_header();
 					<h1> <?php _e( $options['wlwh_label'] ); ?></h1>
 			</div>
 			<?php
+
+
 			if(is_user_logged_in()){
           $currentUserId = get_current_user_id();
           $userTitle = "wlwh_user_" . $currentUserId ;
@@ -28,14 +30,16 @@ get_header();
 			$wishQuery = new WP_Query($args);
 			$count = $wishQuery->found_posts;
 
+
 			if($count==1){  // one user has only one wish list
 				    $wishQuery->the_post();
-				    $productId = get_post_meta(get_the_ID(),'wishids',true);
-				    //	print_r($productId);
+				    $productId = sanitize_text_field(get_post_meta(get_the_ID(),'wishids',true));
+
 				    if( $productId){
-				          $wishListIds = explode(',',$productId);
-				           //	print_r($wishListIds);
-				     ?>
+				          $wishListIds = array_reverse(explode(',',$productId));
+
+									 //	print_r($wishListIds);
+						 ?>
 
     				<?php
     				foreach ($wishListIds as $wishListId) {
@@ -78,6 +82,7 @@ get_header();
 
             											<div class = "page-wishlist__desc">
             													<?php
+
 																			$optionChosen ='1';
 																			if( isset( $options['radio'] ) ) {
 																					$optionChosen = $options['radio'];
@@ -85,6 +90,8 @@ get_header();
 																								_e($currentproduct->get_short_description()) ;
 																					} else if ( $optionChosen == '2'){
 																								_e($currentproduct->get_description()) ;
+																					} else if ( $optionChosen == '3'){
+
 																					}
                                       }
                                        ?>
