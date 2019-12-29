@@ -59,7 +59,5 @@ $options = get_option( 'wlwhplugin_settings' );
 
 
 if( isset( $options[ 'show_button' ] ) ) {
-
-//		add_action( 'woocommerce_after_add_to_cart_button', array($wlwh_button_object , 'wlwh_add_button') );
 		add_action( 'woocommerce_product_meta_start', array($wlwh_button_object , 'wlwh_add_button'),2 );
 }
