@@ -19,7 +19,6 @@ if(!function_exists('wlwhRegisterLike')){
 }
 
 
-
 if(!function_exists('wlwh_createWish')){
 	function wlwh_createWish($data) {
 		if (is_user_logged_in()) {

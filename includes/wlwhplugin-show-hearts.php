@@ -11,6 +11,7 @@ if( !class_exists('wlwh_show_hearts')){
 
 
 		function wlwhplugin_add_wishbox_markup(){
+					$is_json=false;
 					$existStatus = 'no';
 					$wishpostId = 0;
 					$currentUserId = get_current_user_id();
@@ -38,9 +39,16 @@ if( !class_exists('wlwh_show_hearts')){
 					if( isset( $this->options['heart_place'] ) ) {
 							$optionChosen = sanitize_text_field($this->options['heart_place']);
 					}
+					
+					$rest_url = get_rest_url();
+					if (strpos($rest_url,'wp-json') != false){
+							$is_json=true;
+					} else {
+						    $is_json=false;;
+					}
 
 				?>
-				<span class="wish-box hidden wish-box-topleft wish-box_hover" style = " cursor:url('<?php _e($heart_url) ;  ?>' ) 6 6 ,cell" data-exists="<?php _e($existStatus); ?>"  data-place ="<?php _e($optionChosen);?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>" >
+				<span class="wish-box hidden wish-box-topleft wish-box_hover" style = " cursor:url('<?php _e($heart_url) ;  ?>' ) 6 6 ,cell" data-isjson = "<?php _e($is_json); ?> " data-exists="<?php _e($existStatus); ?>"  data-place ="<?php _e($optionChosen);?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>" >
 						<i class = "fa fa-heart-o "></i>
 						<i class = "fa fa-heart"></i>
 				</span>

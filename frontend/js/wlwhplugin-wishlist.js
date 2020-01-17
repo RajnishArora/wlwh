@@ -9,8 +9,8 @@ class WishList {
 			}
 
 			this.wishBox = $(".wish-box");
-      this.trashBox = $(".trashwishitem");
-      this.singleWishBox = $(".single-addtowishList") ;
+			this.trashBox = $(".trashwishitem");
+			this.singleWishBox = $(".single-addtowishList") ;
 
 			this.leftPlace;
 			this.topPlace;
@@ -18,7 +18,7 @@ class WishList {
 
 			this.leftCorrection =0;
 			this.rightCorrection=0;
-
+			this.jsonorrest = '/?rest_route=';
 			this.di;
 
       this.events();
@@ -154,6 +154,9 @@ class WishList {
 
  		let currentWishBox = $(e.target).closest(".wish-box");
 		e.preventDefault();
+		
+		
+		
     	if (currentWishBox.attr('data-exists') == 'yes') {
   //  		console.log("data exists so delete wish")
       		this.deleteWish(currentWishBox);
@@ -177,15 +180,24 @@ class WishList {
 					return;
 					// not logged;
 		}
+		if(currentWishBox.attr('data-isjson') == true) {
+			this.jsonorrest = '/wp-json';
+		} else {
+			this.jsonorrest = '/?rest_route=';
+		}
     //currentWishBox.html('<div class="filter_loading"> <img src="'+crockeryData.theme_uri+'/images/loading_spinner.gif" alt="" /></div>');
     $.ajax({
       beforeSend: (xhr) => {
         xhr.setRequestHeader('X-WP-Nonce', wlwhData.nonce);
       },
-      url: wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
+    //  url: wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
+	//	url: wlwhData.root_url + '/?rest_route=/wlwh/v1/manageWish',
+		url: wlwhData.root_url + this.jsonorrest + '/wlwh/v1/manageWish',
+
       type: 'POST',
       data: {'productId': currentWishBox.data('product-id') },
       success: (response) => {
+				console.log(response);
 				currentWishBox.attr('data-exists', 'yes');
 				this.show_toast(currentWishBox);
       },
@@ -202,13 +214,19 @@ class WishList {
   		console.log(" deleteWish ");
 			let oldStatus = currentWishBox.attr('data-exists');
 			currentWishBox.attr('data-exists', 'no');
+			if(currentWishBox.attr('data-isjson') == true) {
+					this.jsonorrest = '/wp-json';
+				} else {
+					this.jsonorrest = '/?rest_route=';
+			}
       //currentWishBox.html('<div class="filter_loading"> <img src="'+crockeryData.theme_uri+'/images/loading_spinner.gif" alt="" /></div>');
   		$.ajax({
 	      beforeSend: (xhr) => {
 	        xhr.setRequestHeader('X-WP-Nonce', wlwhData.nonce);
 	      },
-	      url:  wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
-	      data: {'productId': currentWishBox.data('product-id') },
+//	      url:  wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
+		url: wlwhData.root_url + this.jsonorrest + '/wlwh/v1/manageWish',
+		data: {'productId': currentWishBox.data('product-id') },
 	      type: 'DELETE',
 	      success: (response) => {
         	console.log(currentWishBox.attr('data-exists'));
@@ -245,14 +263,21 @@ singleProductAddWish(e){
 				if( currentWishBox.attr('data-logged') == 'yes'){
 					currentWishBox.attr('data-exists', 'yes');
 				}
+	
+				if(currentWishBox.attr('data-isjson') == true) {
+					this.jsonorrest = '/wp-json';
+				} else {
+					this.jsonorrest = '/?rest_route=';
+				}
 
-				if(status == 'no') {
+			if(status == 'no') {
               $.ajax({
               beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', wlwhData.nonce);
               },
-              url: wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
-              type: 'POST',
+              //url: wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
+			  url: wlwhData.root_url + this.jsonorrest + '/wlwh/v1/manageWish',
+			  type: 'POST',
               data: {'productId': temp },
               success: (response) => {
 								currentWishBox.attr('data-exists', 'yes');
@@ -277,19 +302,25 @@ singleProductAddWish(e){
 
 
 
-		ourTrashWish(evt){
+	ourTrashWish(evt){
 
       var evtDet = $(evt.target);
       var temp = $(evtDet).data("trashitem");
-
+	  var temp2= $(evtDet).data("trashjson");	
 		//	alert(" trash clicked ");
 		//	alert(temp);
+		if(temp2 == true) {
+					this.jsonorrest = '/wp-json';
+				} else {
+					this.jsonorrest = '/?rest_route=';
+				}	
 
       $.ajax({
         beforeSend: (xhr) => {
           xhr.setRequestHeader('X-WP-Nonce', wlwhData.nonce);
         },
-        url:  wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
+    //    url:  wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
+		url: wlwhData.root_url + this.jsonorrest + '/wlwh/v1/manageWish',
         data: {'productId': temp },
         type: 'DELETE',
         success: (response) => {

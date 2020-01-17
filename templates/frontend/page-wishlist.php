@@ -3,8 +3,16 @@
 /* Template Name: wishlist */
 
 get_header();
-
+/*
+$rest_url = get_rest_url();
+if (strpos($rest_url,'wp-json') != false){
+		echo "json";
+} else {
+	echo "not json";
+}
+*/
 ?>
+
 
 
 <!-- MAIN CONTENT
@@ -15,7 +23,7 @@ get_header();
 
 			?>
 			<div class ="wish-header">
-					<h1> <?php _e( $options['wlwh_label'] ); ?></h1>
+					<h1> <?php if( isset( $options[ 'wlwh_label' ] ) ) { _e( $options['wlwh_label'] );} ?></h1>
 			</div>
 			<?php
 
@@ -25,7 +33,7 @@ get_header();
           $userTitle = "wlwh_user_" . $currentUserId ;
 			    $args = array(
 						   'title'	=> $userTitle,
-					     'post_type' => 'wish'
+							'post_type' => 'wish'
 		      );
 			$wishQuery = new WP_Query($args);
 			$count = $wishQuery->found_posts;
@@ -98,9 +106,16 @@ get_header();
           											   </div>
 
             								</div>
-
+										<?php
+										$rest_url = get_rest_url();
+										if (strpos($rest_url,'wp-json') != false){
+												$is_json=true;
+										} else {
+												$is_json=false;;
+										}
+										?>
         								<div class= "col-1 page-wishlist__trashicon ">
-        									<span class="fa fa-trash trashwishitem"  aria-hidden="true" data-trashitem ="<?php _e($wishListId)  ; ?>"></span>
+        									<span class="fa fa-trash trashwishitem"  aria-hidden="true" data-trashjson = "<?php _e($is_json); ?> "  data-trashitem ="<?php _e($wishListId)  ; ?>"></span>
         								</div>
       							</div>
 
