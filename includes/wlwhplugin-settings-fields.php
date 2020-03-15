@@ -47,18 +47,21 @@ function wlwhplugin_settings() {
       ]
     );
 
+    // Color Picker for heart
+    add_settings_field(
+            // Unique identifier for field
+            'wlwhplugin_heart_color',
+            // Field Title
+            __( 'Choose Heart Color ', 'wlwhplugin'),
+            // Callback for field markup
+            'wlwhplugin_heart_picker_callback',
+            // Page to go on
+            'wlwhplugin',
+            // Section to go in
+            'wlwhplugin_settings_section'
+    );
 
-        // Checkbox Field
-        add_settings_field(
-          'wlwhplugin_show_button_checkbox',
-          __( 'Show Button ', 'wlwhplugin'),
-          'wlwhplugin_show_button_checkbox_callback',
-          'wlwhplugin',
-          'wlwhplugin_settings_section',
-          [
-            'label' => 'Click to show on Single Product Page'
-          ]
-        );
+
 
           // Radio Field
           add_settings_field(
@@ -80,7 +83,7 @@ function wlwhplugin_settings() {
                   // Unique identifier for field
                   'wlwhplugin_correction_text',
                   // Field Title
-                  __( 'Correction in Placement(if needed) ', 'wlwhplugin'),
+                  __( 'Move heart icon left/right or top/down (if needed) ', 'wlwhplugin'),
                   // Callback for field markup
                   'wlwhplugin_correction_text_callback',
                   // Page to go on
@@ -95,13 +98,41 @@ function wlwhplugin_settings() {
           );
 
 
+          // Radio Field
+          add_settings_field(
+            'wlwhplugin_heart_cursor_radio',
+            __( 'Choose the cursor ', 'wlwhplugin'),
+            'wlwhplugin_heart_cursor_callback',
+            'wlwhplugin',
+            'wlwhplugin_settings_section',
+            [
+              'option_pointer' => 'Pointer',
+              'option_cell' => 'Cell',
+              'option_crosshair' => 'Crosshair',
+              'option_default' => 'Default'
+            ]
+          );
+
+
+      // Checkbox Field
+        add_settings_field(
+                    'wlwhplugin_show_button_checkbox',
+                    __( 'Show Button(Add to Wishlist button) ', 'wlwhplugin'),
+                    'wlwhplugin_show_button_checkbox_callback',
+                    'wlwhplugin',
+                    'wlwhplugin_settings_section',
+                    [
+                      'label' => 'Click to show on Single Product Page'
+                    ]
+              );
+
 
         // Input Text Field
         add_settings_field(
                 // Unique identifier for field
                 'wlwhplugin_button_text',
                 // Field Title
-                __( 'Button Text (Add to WishList button)  ', 'wlwhplugin'),
+                __( 'Button Label (Add to WishList button)  ', 'wlwhplugin'),
                 // Callback for field markup
                 'wlwhplugin_button_text_callback',
                 // Page to go on
@@ -110,15 +141,12 @@ function wlwhplugin_settings() {
                 'wlwhplugin_settings_section'
         );
 
-
-
-
         // Input Text Field
         add_settings_field(
                 // Unique identifier for field
                 'wlwhplugin_toast_text',
                 // Field Title
-                __( 'Toast(Added to WishList) Text ', 'wlwhplugin'),
+                __( 'Toast(Added to WishList ...) Text ', 'wlwhplugin'),
                 // Callback for field markup
                 'wlwhplugin_toast_text_callback',
                 // Page to go on
@@ -183,6 +211,21 @@ function wlwhplugin_settings_label_text_callback() {
   _e( '<input type="text" id="wlwhplugin_labeltext" name="wlwhplugin_settings[wlwh_label]" size="25" value="' . $wlwh_label . '" />' );
 
 }
+
+function wlwhplugin_heart_picker_callback() {
+
+  $options = get_option( 'wlwhplugin_settings' );
+
+	$wlwh_heart_picker_label = '';
+	if( isset( $options[ 'wlwh_heart_picker_label' ] ) ) {
+		$wlwh_heart_picker_label = esc_html( $options['wlwh_heart_picker_label'] );
+	}
+
+  _e( '<input type="text" value="' . $wlwh_heart_picker_label . '" class="wlwh-color-field" data-default-color="#ff0000" id="wlwhplugin_heart_picker" name="wlwhplugin_settings[wlwh_heart_picker_label]" size="25"  />' );
+
+}
+
+
 
 function wlwhplugin_single_selector_checkbox_callback( $args ) {
 
@@ -275,6 +318,28 @@ function wlwhplugin_description_selector_checkbox_callback( $args ) {
 	$html .= ' <label for="wlwhplugin_settings_radio_two">'. $args['option_two'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   $html .= '<input type="radio" id="wlwhplugin_settings_radio_three" name="wlwhplugin_settings[radio]" value="3"' . checked( 3, $radio, false ) . '/>';
 	$html .= ' <label for="wlwhplugin_settings_radio_three">'. $args['option_three'] .'</label>';
+
+  _e($html);
+	//echo $html;
+}
+
+
+function wlwhplugin_heart_cursor_callback( $args ) {
+  $options = get_option( 'wlwhplugin_settings' );
+
+  $radio = '';
+	if( isset( $options[ 'heart_cursor' ] ) ) {
+		$radio = esc_html( $options['heart_cursor'] );
+	}
+
+	$html = '<input type="radio" id="wlwhplugin_settings_radio_pointer" name="wlwhplugin_settings[heart_cursor]" value="1"' . checked( 1, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_pointer">'. $args['option_pointer'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+	$html .= '<input type="radio" id="wlwhplugin_settings_radio_cell" name="wlwhplugin_settings[heart_cursor]" value="2"' . checked( 2, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_cell">'. $args['option_cell'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= '<input type="radio" id="wlwhplugin_settings_radio_crosshair" name="wlwhplugin_settings[heart_cursor]" value="3"' . checked( 3, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_crosshair">'. $args['option_crosshair'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+	$html .= '<input type="radio" id="wlwhplugin_settings_radio_default" name="wlwhplugin_settings[heart_cursor]" value="4"' . checked( 4, $radio, false ) . '/>';
+	$html .= ' <label for="wlwhplugin_settings_radio_default">'. $args['option_default'] .'</label>';
 
   _e($html);
 	//echo $html;

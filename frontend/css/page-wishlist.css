@@ -104,9 +104,8 @@
 
 .page-wishlist__innerflex{
   display: flex;
-  flex-direction: column;
 	font-size: 1.25rem;
-	min-width: 114px;
+	justify-content: center;
 }
 
 
@@ -125,10 +124,14 @@
 	}
 
 .page-wishlist__carticon{
+			color:#000;
+			background-color: #d3d3d3;
       text-align: center;
     	font-size: 1.25rem !important;
     	cursor: pointer;
 			margin-bottom: 10px;
+			padding: 15px 20px ;
+			border-radius: 5%;
 	}
 
 	.page-wishlist__carticon:hover{

@@ -35,10 +35,10 @@ class WishList {
 			let cwbOffest = currentWishBox.offset();
 			let cwbTop = cwbOffest.top;
 			let cwbLeft = cwbOffest.left;
-			cwbTop -=4;
+			cwbTop +=4;
 
 			if(this.place == '1' || this.place == '3'){
-					cwbLeft += 30;
+					cwbLeft += 50;
 			} else if(this.place == '2' || this.place == '4'){
 					cwbLeft -= 180;
 			}
@@ -60,7 +60,7 @@ class WishList {
 
 
 		place_wishboxes( ){
-						//console.log("place called");
+						console.log("place called");
 						let i=0;
 						let allWishBoxes = document.getElementsByClassName("wish-box");
 						if ( allWishBoxes.length < 0) return;
@@ -154,9 +154,9 @@ class WishList {
 
  		let currentWishBox = $(e.target).closest(".wish-box");
 		e.preventDefault();
-		
-		
-		
+
+
+
     	if (currentWishBox.attr('data-exists') == 'yes') {
   //  		console.log("data exists so delete wish")
       		this.deleteWish(currentWishBox);
@@ -173,13 +173,13 @@ class WishList {
  		console.log(" createWish ");
 		let oldStatus = currentWishBox.attr('data-exists');
 
-		if( currentWishBox.attr('data-logged') == 'yes'){
+		//if( currentWishBox.attr('data-logged') == 'yes'){
 			currentWishBox.attr('data-exists', 'yes');
-		} else {
-					alert("Please log in to create a wish list");
-					return;
+		//} else {
+		//			alert("Please log in to create a wish list");
+		//			return;
 					// not logged;
-		}
+		 // }
 		if(currentWishBox.attr('data-isjson') == true) {
 			this.jsonorrest = '/wp-json';
 		} else {
@@ -229,8 +229,8 @@ class WishList {
 		data: {'productId': currentWishBox.data('product-id') },
 	      type: 'DELETE',
 	      success: (response) => {
-        	console.log(currentWishBox.attr('data-exists'));
-	        //console.log(response);
+        	//console.log(currentWishBox.attr('data-exists'));
+	        console.log(response);
 	      },
 	      error: (response) => {
 					currentWishBox.attr('data-exists', oldStatus);
@@ -263,7 +263,7 @@ singleProductAddWish(e){
 				if( currentWishBox.attr('data-logged') == 'yes'){
 					currentWishBox.attr('data-exists', 'yes');
 				}
-	
+
 				if(currentWishBox.attr('data-isjson') == true) {
 					this.jsonorrest = '/wp-json';
 				} else {
@@ -306,14 +306,14 @@ singleProductAddWish(e){
 
       var evtDet = $(evt.target);
       var temp = $(evtDet).data("trashitem");
-	  var temp2= $(evtDet).data("trashjson");	
+	  var temp2= $(evtDet).data("trashjson");
 		//	alert(" trash clicked ");
 		//	alert(temp);
 		if(temp2 == true) {
 					this.jsonorrest = '/wp-json';
 				} else {
 					this.jsonorrest = '/?rest_route=';
-				}	
+				}
 
       $.ajax({
         beforeSend: (xhr) => {

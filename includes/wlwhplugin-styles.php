@@ -16,5 +16,6 @@ function wlwhplugin_admin_styles() {
   wp_enqueue_style(
     'wlwhplugin-admin', WLWHPLUGIN_URL . 'admin/css/metabox.css', [],  1.0
   );
+  wp_enqueue_style( 'wp-color-picker' );
 }
 add_action( 'admin_enqueue_scripts', 'wlwhplugin_admin_styles', 100 );

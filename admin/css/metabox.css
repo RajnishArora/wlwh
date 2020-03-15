@@ -83,7 +83,7 @@
 
 .waiting {
   margin-top: -10%;
-  margin-left:30%;
+  margin-left:30td
 }
 
 .cross{
@@ -95,4 +95,15 @@
 
 .cross:hover{
   transform: scale(1.5,1.5);
+}
+
+.wrap td {
+  line-height: 1;
+  padding: 10px 10px;
+}
+
+.wrap th{
+  line-height: 1;
+  width: 250px;
+  padding: 15px 10px 15px 0;
 }
