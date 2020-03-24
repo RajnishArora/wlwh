@@ -107,3 +107,9 @@
   width: 250px;
   padding: 15px 10px 15px 0;
 }
+
+.wrap h1{
+  margin-bottom: 48px;
+  font-size: 32px;
+  font-weight: 500;
+}

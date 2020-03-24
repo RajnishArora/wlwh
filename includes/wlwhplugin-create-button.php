@@ -107,7 +107,15 @@ if( !class_exists('wlwh_create_button')){
 $wlwh_button_object = new wlwh_create_button;
 $options = get_option( 'wlwhplugin_settings' );
 
-if( isset( $options[ 'show_button' ] ) ) {
-					add_action( 'woocommerce_product_meta_start', array($wlwh_button_object , 'wlwh_add_button'),2 );
+if( isset( $options[ 'select' ] ) ) {
+	$option_selected = sanitize_text_field($options[ 'select' ]);
+	if($option_selected == "option_one"){
+			add_action( 'woocommerce_before_add_to_cart_button', array($wlwh_button_object , 'wlwh_add_button'),2 );
+	} else if($option_selected == "option_two"){
+			add_action( 'woocommerce_product_meta_start', array($wlwh_button_object , 'wlwh_add_button'),2 );
+	} else {
+				// user wants to add shortcode or no button needed
+	}
+
 
 }

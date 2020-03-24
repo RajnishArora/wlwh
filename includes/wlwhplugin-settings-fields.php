@@ -14,7 +14,7 @@ function wlwhplugin_settings() {
     // Unique identifier for the section
     'wlwhplugin_settings_section',
     // Section Title
-    __( '', 'wlwhplugin' ),
+    __( 'Heart Icon Settings', 'wlwhplugin' ),
     // Callback for an optional description
     'wlwhplugin_settings_section_callback',
     // Admin page to add section to
@@ -113,75 +113,113 @@ function wlwhplugin_settings() {
             ]
           );
 
-
-      // Checkbox Field
-        add_settings_field(
-                    'wlwhplugin_show_button_checkbox',
-                    __( 'Show Button(Add to Wishlist button) ', 'wlwhplugin'),
-                    'wlwhplugin_show_button_checkbox_callback',
-                    'wlwhplugin',
-                    'wlwhplugin_settings_section',
-                    [
-                      'label' => 'Click to show on Single Product Page'
-                    ]
+                  // Input Text Field
+          add_settings_field(
+                          // Unique identifier for field
+                      'wlwhplugin_toast_text',
+                          // Field Title
+                      __( 'Toast(Added to WishList ...) Text ', 'wlwhplugin'),
+                          // Callback for field markup
+                      'wlwhplugin_toast_text_callback',
+                          // Page to go on
+                      'wlwhplugin',
+                          // Section to go in
+                      'wlwhplugin_settings_section'
               );
 
 
-        // Input Text Field
-        add_settings_field(
-                // Unique identifier for field
-                'wlwhplugin_button_text',
-                // Field Title
-                __( 'Button Label (Add to WishList button)  ', 'wlwhplugin'),
-                // Callback for field markup
-                'wlwhplugin_button_text_callback',
-                // Page to go on
-                'wlwhplugin',
-                // Section to go in
-                'wlwhplugin_settings_section'
+          // Define (at least) one section for our fields
+          add_settings_section(
+            // Unique identifier for the section
+            'wlwhplugin_button_settings_section',
+            // Section Title
+            __( 'Add to Wishlist Button Settings', 'wlwhplugin' ),
+            // Callback for an optional description
+            'wlwhplugin_button_settings_section_callback',
+            // Admin page to add section to
+            'wlwhplugin'
+          );
+
+
+                  // Input Text Field
+                  add_settings_field(
+                          // Unique identifier for field
+                          'wlwhplugin_button_text',
+                          // Field Title
+                          __( 'Button Text (Add to WishList button)  ', 'wlwhplugin'),
+                          // Callback for field markup
+                          'wlwhplugin_button_text_callback',
+                          // Page to go on
+                          'wlwhplugin',
+                          // Section to go in
+                          'wlwhplugin_button_settings_section'
+                  );
+
+                // select field
+
+                // Dropdown
+           add_settings_field(
+             'wlwhplugin_settings_select',
+             __( 'Select Place for Wishlist Button', 'wlwhplugin'),
+             'wlwhplugin_settings_select_callback',
+             'wlwhplugin',
+             'wlwhplugin_button_settings_section',
+             [
+               'option_one' => '   Put the button BEFORE "Add to Cart   "',
+               'option_two' => '   Put the button AFTER "Add to Cart   "',
+               'option_three' => '   Button Not Required / Use shortcode   '
+             ]
+           );
+
+        add_settings_section(
+          // Unique identifier for the section
+          'wlwhplugin_wishlistpage_settings_section',
+          // Section Title
+          __( 'Wish List Page Settings', 'wlwhplugin' ),
+          // Callback for an optional description
+          'wlwhplugin_settings_section_callback',
+          // Admin page to add section to
+          'wlwhplugin'
         );
 
-        // Input Text Field
+              // Dropdown
+         add_settings_field(
+           'wlwhplugin_settings_page_select',
+           __( 'Select Page for Wishlist', 'wlwhplugin'),
+           'wlwhplugin_settings_page_select_callback',
+           'wlwhplugin',
+           'wlwhplugin_wishlistpage_settings_section'
+
+         );
+
+
+          // Input Text Field
         add_settings_field(
-                // Unique identifier for field
-                'wlwhplugin_toast_text',
-                // Field Title
-                __( 'Toast(Added to WishList ...) Text ', 'wlwhplugin'),
-                // Callback for field markup
-                'wlwhplugin_toast_text_callback',
-                // Page to go on
-                'wlwhplugin',
-                // Section to go in
-                'wlwhplugin_settings_section'
+          // Unique identifier for field
+          'wlwhplugin_settings_label_text',
+          // Field Title
+          __( 'Heading for Wish List Page ', 'wlwhplugin'),
+          // Callback for field markup
+          'wlwhplugin_settings_label_text_callback',
+          // Page to go on
+          'wlwhplugin',
+          // Section to go in
+          'wlwhplugin_wishlistpage_settings_section'
         );
 
-        // Input Text Field
-      add_settings_field(
-        // Unique identifier for field
-        'wlwhplugin_settings_label_text',
-        // Field Title
-        __( 'Title for Wish List Page ', 'wlwhplugin'),
-        // Callback for field markup
-        'wlwhplugin_settings_label_text_callback',
-        // Page to go on
-        'wlwhplugin',
-        // Section to go in
-        'wlwhplugin_settings_section'
-      );
-
-  // Radio Field
-  add_settings_field(
-    'wlwhplugin_description_selector_checkbox',
-    __( 'Choose which Description to show on WishList Page', 'wlwhplugin'),
-    'wlwhplugin_description_selector_checkbox_callback',
-    'wlwhplugin',
-    'wlwhplugin_settings_section',
-    [
-      'option_one' => 'Short Description',
-      'option_two' => 'Long Description',
-      'option_three' => 'No Description'
-    ]
-  );
+        // Radio Field
+        add_settings_field(
+          'wlwhplugin_description_selector_checkbox',
+          __( 'Choose which Description to show on WishList Page', 'wlwhplugin'),
+          'wlwhplugin_description_selector_checkbox_callback',
+          'wlwhplugin',
+          'wlwhplugin_wishlistpage_settings_section',
+          [
+            'option_one' => 'Short Description',
+            'option_two' => 'Long Description',
+            'option_three' => 'No Description'
+          ]
+        );
 
 
   register_setting(
@@ -194,9 +232,15 @@ function wlwhplugin_settings() {
 add_action( 'admin_init', 'wlwhplugin_settings' );
 
 function wlwhplugin_settings_section_callback() {
-
   esc_html_e( '', 'wlwhplugin' );
+}
 
+function wlwhplugin_button_settings_section_callback(){
+  esc_html_e( '', 'wlwhplugin' );
+}
+
+function wlwhplugin_wishlistpage_settings_section(){
+    esc_html_e( '', 'wlwhplugin' );
 }
 
 function wlwhplugin_settings_label_text_callback() {
@@ -260,24 +304,6 @@ function wlwhplugin_other_selector_checkbox_callback( $args ) {
 	_e($html);
 }
 
-function wlwhplugin_show_button_checkbox_callback( $args ) {
-
-  $options = get_option( 'wlwhplugin_settings' );
-
-  $checkbox = '';
-	if( isset( $options[ 'show_button' ] ) ) {
-		$checkbox = esc_html( $options['show_button'] );
-	}
-
-
-	$html = '<input type="checkbox" id="wlwhplugin_show_button" name="wlwhplugin_settings[show_button]" value="1"' . checked( 1, $checkbox, false ) . '/>';
-	$html .= '&nbsp;';
-	$html .= '<label for="wlwhplugin_show_button">' . $args['label'] . '</label>';
-  $html .= '&nbsp;';$html .= '&nbsp;';
-  _e($html);
-
-}
-
 function wlwhplugin_button_text_callback() {
 
   $options = get_option( 'wlwhplugin_settings' );
@@ -290,6 +316,57 @@ function wlwhplugin_button_text_callback() {
 }
 
 
+function wlwhplugin_settings_select_callback( $args ) {
+
+  $options = get_option( 'wlwhplugin_settings' );
+
+  $select = '';
+	if( isset( $options[ 'select' ] ) ) {
+		$select = esc_html( $options['select'] );
+	}
+
+  $html = '<select id="wlwhplugin_settings_options" name="wlwhplugin_settings[select]">';
+
+  $html .= '<option value="option_one"' . selected( $select, 'option_one', false) . '>' . $args['option_one'] . '</option>';
+	$html .= '<option value="option_two"' . selected( $select, 'option_two', false) . '>' . $args['option_two'] . '</option>';
+	$html .= '<option value="option_three"' . selected( $select, 'option_three', false) . '>' . $args['option_three'] . '</option>';
+	$html .= '</select>';
+
+  $html .= '<br><br><br><br>';
+	_e($html);
+
+}
+
+function wlwhplugin_settings_page_select_callback(  ) {
+
+  $options = get_option( 'wlwhplugin_settings' );
+
+  $pageselect = '';
+	if( isset( $options[ 'pageselect' ] ) ) {
+		  $pageselect = esc_html( $options['pageselect'] );
+	}
+
+  $option0 = "Let the plugin create a wishlist page ";
+  $html = '<select id="wlwhplugin_settings_page_select_options" name="wlwhplugin_settings[pageselect]">';
+  $html .= '<option value="-1">';
+  $html .= $option0;
+  $html .= '</option>';
+              $pages = get_pages();
+              $selected = " ";
+              foreach ( $pages as $page ) {
+                  if( $pageselect == $page->ID ) { $selected = " selected ";  } else { $selected =" ";  }
+
+                  $html  .= '<option value= "' . $page->ID .'"' .  $selected . ' >';
+                  $html .= $page->post_title;
+                  $html .= '</option>';
+              }
+	$html .= '</select>';
+
+	_e($html);
+
+}
+
+
 function wlwhplugin_toast_text_callback() {
 
   $options = get_option( 'wlwhplugin_settings' );
@@ -299,6 +376,7 @@ function wlwhplugin_toast_text_callback() {
 		$wlwh_toast = esc_html( $options['wlwh_toast'] );
 	}
   _e( '<input type="text" id="wlwhplugin_toasttext" name="wlwhplugin_settings[wlwh_toast]" maxlength="25" size="25" value="' . $wlwh_toast . '" />' );
+  _e('<br><br><br><br>');
 }
 
 
@@ -318,9 +396,10 @@ function wlwhplugin_description_selector_checkbox_callback( $args ) {
 	$html .= ' <label for="wlwhplugin_settings_radio_two">'. $args['option_two'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   $html .= '<input type="radio" id="wlwhplugin_settings_radio_three" name="wlwhplugin_settings[radio]" value="3"' . checked( 3, $radio, false ) . '/>';
 	$html .= ' <label for="wlwhplugin_settings_radio_three">'. $args['option_three'] .'</label>';
+  $html .= '<br><br><br><br>';
 
   _e($html);
-	//echo $html;
+
 }
 
 
@@ -340,9 +419,8 @@ function wlwhplugin_heart_cursor_callback( $args ) {
 	$html .= ' <label for="wlwhplugin_settings_radio_crosshair">'. $args['option_crosshair'] .'</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 	$html .= '<input type="radio" id="wlwhplugin_settings_radio_default" name="wlwhplugin_settings[heart_cursor]" value="4"' . checked( 4, $radio, false ) . '/>';
 	$html .= ' <label for="wlwhplugin_settings_radio_default">'. $args['option_default'] .'</label>';
-
   _e($html);
-	//echo $html;
+
 }
 
 
@@ -364,7 +442,7 @@ function wlwhplugin_heart_place_radio_callback( $args ) {
 	$html .= ' <label for="wlwhplugin_settings_radio_bottomright">'. $args['option_bottomright'] .'</label>';
 
   _e($html);
-	//echo $html;
+	
 }
 
 
