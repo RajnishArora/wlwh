@@ -3,14 +3,19 @@
 if( !class_exists('wlwh_show_hearts')){
 	class wlwh_show_hearts{
 
-		//private $options = [];
+
 
 		public function __construct(){
 				$this->options = get_option( 'wlwhplugin_settings' );
+
+		}
+
+		function wlwhplugin_add_short_wishbox(){
+				$this->wlwhplugin_add_wishbox_markup("true");
 		}
 
 
-		function wlwhplugin_add_wishbox_markup(){
+		function wlwhplugin_add_wishbox_markup($short = "false"){
 					$is_json=false;
 					$existStatus = 'no';
 					$currentProductId = get_the_ID();
@@ -82,8 +87,9 @@ if( !class_exists('wlwh_show_hearts')){
 				} else {
 						$heart_col = "#ff0000";
 				}
+
 				?>
-				<span class="wish-box hidden wish-box-topleft wish-box_hover" style = "cursor: <?php _e($heart_url) ; ?> ;  color: <?php _e($heart_col);?> ;" data-isjson = "<?php _e($is_json); ?> " data-exists="<?php _e($existStatus); ?>"  data-place ="<?php _e($optionChosen);?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>" >
+				<span class="wish-box hidden wish-box_hover" style = "cursor: <?php _e($heart_url) ; ?> ;  color: <?php _e($heart_col);?> ;" data-isjson = "<?php _e($is_json); ?> " data-exists="<?php _e($existStatus); ?>"  data-place ="<?php _e($optionChosen);?>"  data-product-id="<?php _e($currentProductId) ; ?>"  data-logged="<?php _e($logged); ?>" data-short="<?php _e($short); ?>">
 						<i class = "fa fa-heart-o "></i>
 						<i class = "fa fa-heart"></i>
 				</span>

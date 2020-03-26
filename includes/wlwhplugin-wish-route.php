@@ -1,5 +1,5 @@
 <?php
-
+// donot allow duplicate enteries
 
 if(!function_exists('wlwhRegisterLike')){
 			function wlwhRegisterLike() {
@@ -34,7 +34,25 @@ if(!function_exists('wlwh_createWish')){
 			if ( $wishpostId ){ 		//wish list exists so append
 				//$wishpostId = $wishpost->ID;
 				$prvWishId =sanitize_text_field(get_post_meta($wishpostId,'wishids',true));
+
+
+
+
 				if($prvWishId){
+					// first remove any old entry
+
+								$arrayofWishListIds = explode(',',$prvWishId);
+								// remove the entry of $productId from array and implode
+
+								$key = array_search($productId,$arrayofWishListIds);
+								if($key!==false){
+										unset($arrayofWishListIds[$key]);
+								}
+
+								$prvWishId =  sanitize_text_field(implode(",",$arrayofWishListIds));
+
+
+					// then add new entry
 					$wishIdStr= $prvWishId.",".$productId ;
 				} else {
 					$wishIdStr=$productId;

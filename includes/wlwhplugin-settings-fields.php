@@ -127,6 +127,16 @@ function wlwhplugin_settings() {
                       'wlwhplugin_settings_section'
               );
 
+                        // Textarea Field
+            add_settings_field(
+              'wlwhplugin_css_textarea',
+              __( 'Additional Settings(css) for heart icon', 'wlwhplugin'),
+              'wlwhplugin_css_textarea_callback',
+              'wlwhplugin',
+              'wlwhplugin_settings_section'
+            );
+
+
 
           // Define (at least) one section for our fields
           add_settings_section(
@@ -207,7 +217,21 @@ function wlwhplugin_settings() {
           'wlwhplugin_wishlistpage_settings_section'
         );
 
+        // Checkbox Field
+        add_settings_field(
+          'wlwhplugin_feature_image_checkbox',
+          __( 'Show feature image of wishlist Page', 'wlwhplugin'),
+          'wlwhplugin_feature_image_callback',
+          'wlwhplugin',
+          'wlwhplugin_wishlistpage_settings_section',
+          [
+            'label' => 'Check to use the feature image as Heading Background'
+          ]
+        );
+
+
         // Radio Field
+        /*
         add_settings_field(
           'wlwhplugin_description_selector_checkbox',
           __( 'Choose which Description to show on WishList Page', 'wlwhplugin'),
@@ -220,7 +244,7 @@ function wlwhplugin_settings() {
             'option_three' => 'No Description'
           ]
         );
-
+*/
 
   register_setting(
     'wlwhplugin_settings',
@@ -289,6 +313,39 @@ function wlwhplugin_single_selector_checkbox_callback( $args ) {
 
 }
 
+function wlwhplugin_css_textarea_callback() {
+
+  $options = get_option( 'wlwhplugin_settings' );
+
+	$textarea = '';
+	if( isset( $options[ 'csstextarea' ] ) ) {
+		$textarea = esc_html( $options['csstextarea'] );
+	}
+
+  _e('<textarea id="wlwhplugin_css_textarea" name="wlwhplugin_settings[csstextarea]" rows="5" cols="50">' . $textarea . '</textarea>') ;
+  _e('<br><br><br><br>');
+}
+
+
+
+
+function wlwhplugin_feature_image_callback( $args ) {
+
+  $options = get_option( 'wlwhplugin_settings' );
+
+  $checkbox = '';
+	if( isset( $options[ 'img_background' ] ) ) {
+		$checkbox = esc_html( $options['img_background'] );
+
+	}
+
+	$html = '<input type="checkbox" id="wlwhplugin_img_background" name="wlwhplugin_settings[img_background]" value="1"' . checked( 1, $checkbox, false ) . '/>';
+	$html .= '&nbsp;';
+	$html .= '<label for="wlwhplugin_img_background">' . $args['label'] . '</label>';
+
+	_e($html);
+
+}
 
 function wlwhplugin_other_selector_checkbox_callback( $args ) {
 
@@ -346,11 +403,13 @@ function wlwhplugin_settings_page_select_callback(  ) {
 		  $pageselect = esc_html( $options['pageselect'] );
 	}
 
-  $option0 = "Let the plugin create a wishlist page ";
+
+  $option0 = "Use Shortcode to place the wishlist Anywhere";
   $html = '<select id="wlwhplugin_settings_page_select_options" name="wlwhplugin_settings[pageselect]">';
   $html .= '<option value="-1">';
   $html .= $option0;
   $html .= '</option>';
+
               $pages = get_pages();
               $selected = " ";
               foreach ( $pages as $page ) {
@@ -376,11 +435,11 @@ function wlwhplugin_toast_text_callback() {
 		$wlwh_toast = esc_html( $options['wlwh_toast'] );
 	}
   _e( '<input type="text" id="wlwhplugin_toasttext" name="wlwhplugin_settings[wlwh_toast]" maxlength="25" size="25" value="' . $wlwh_toast . '" />' );
-  _e('<br><br><br><br>');
+
 }
 
 
-
+/*
 
 function wlwhplugin_description_selector_checkbox_callback( $args ) {
   $options = get_option( 'wlwhplugin_settings' );
@@ -402,7 +461,7 @@ function wlwhplugin_description_selector_checkbox_callback( $args ) {
 
 }
 
-
+*/
 function wlwhplugin_heart_cursor_callback( $args ) {
   $options = get_option( 'wlwhplugin_settings' );
 
@@ -442,7 +501,7 @@ function wlwhplugin_heart_place_radio_callback( $args ) {
 	$html .= ' <label for="wlwhplugin_settings_radio_bottomright">'. $args['option_bottomright'] .'</label>';
 
   _e($html);
-	
+
 }
 
 

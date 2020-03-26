@@ -21,6 +21,8 @@ class WishList {
 			this.jsonorrest = '/?rest_route=';
 			this.di;
 
+			this.shortcode = $("#shortinput");
+
       this.events();
 	}
 
@@ -60,9 +62,11 @@ class WishList {
 
 
 		place_wishboxes( ){
+
 						console.log("place called");
 						let i=0;
 						let allWishBoxes = document.getElementsByClassName("wish-box");
+						//console.log(allWishBoxes.length);
 						if ( allWishBoxes.length < 0) return;
 						//console.log(allWishBoxes[0]);
 						this.place = $(allWishBoxes[0]).attr('data-place');
@@ -79,13 +83,21 @@ class WishList {
 						//alert(this.rightCorrection);
 
 						for(i=0; i<allWishBoxes.length; i++){
+							let short = $(allWishBoxes[i]).data('short');
+							let shorttrue="true";
+							let shortcheck = shorttrue.localeCompare(short);
+							console.log(shortcheck);
+							if(shortcheck == 0) {
+										$(allWishBoxes[i]).removeClass("hidden");
+										continue; // skip the current iteration
+									}
 							this.di = $(allWishBoxes[i]).parent().find('img');
 							let displayImage = $(allWishBoxes[i]).parent().find('img');
 							//console.log(displayImage[0]);
 							if(displayImage.length < 0 ){
 									$(allWishBoxes[i]).removeClass("hidden");
-									console.log("Javascript placement fails, reverting to top left pos");
-									$(allWishBoxes[i]).addClass("wish-box-topleft");
+									console.log("Javascript placement fails");
+									//$(allWishBoxes[i]).addClass("wish-box-topleft");
 									// let postioning of css take place ie on top left
 							} else {
 										$(displayImage[0]).one("load", function() {
@@ -139,12 +151,14 @@ class WishList {
 
 	//events
 	events() {
+		//alert(this.shortcode.val());
     this.wishBox.on("click", this.ourClickDispatcher.bind(this));
     this.trashBox.on("click", this.ourTrashWish.bind(this));
     this.singleWishBox.on("click", this.singleProductAddWish.bind(this));
 		$(window).load(this.place_wishboxes.bind(this));
 		$(window).on("resize",this.place_wishboxes.bind(this));
-		//this.singleWishBox.on("click", this.ourClickDispatcher.bind(this));
+
+				//this.singleWishBox.on("click", this.ourClickDispatcher.bind(this));
 
   	}
 
@@ -250,6 +264,7 @@ singleProductAddWish(e){
 				let currentWishBox = $('.single-product').find(".wish-box");
 				if(currentWishBox.length <= 0){
 								console.log("Wish Box could not be located");
+								//so create a hidden wish box ??
 								return;
 				}
 
@@ -276,22 +291,23 @@ singleProductAddWish(e){
                 xhr.setRequestHeader('X-WP-Nonce', wlwhData.nonce);
               },
               //url: wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
-			  url: wlwhData.root_url + this.jsonorrest + '/wlwh/v1/manageWish',
-			  type: 'POST',
-              data: {'productId': temp },
-              success: (response) => {
-								currentWishBox.attr('data-exists', 'yes');
-								this.show_toast(currentWishBox);
+						  url: wlwhData.root_url + this.jsonorrest + '/wlwh/v1/manageWish',
+						  type: 'POST',
+			              data: {'productId': temp },
+			              success: (response) => {
+											currentWishBox.attr('data-exists', 'yes');
+											this.show_toast(currentWishBox);
 
-              },
-              error: (response) => {
-								currentWishBox.attr('data-exists', oldStatus);
-                console.log(response);
-              }
-            });
+			              },
+			              error: (response) => {
+											currentWishBox.attr('data-exists', oldStatus);
+			                console.log(response);
+			              }
+			            });
 
         } else if (status == 'yes'){
              console.log("already exists in wish list");
+						 //show a modal as in added to wishlist
           } else {
               console.log("invalid entry");
           }

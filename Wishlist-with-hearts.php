@@ -49,6 +49,7 @@ include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-wish-route.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-email-route.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-create-page.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-create-button.php');
+include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-wishlist.php');
 include( plugin_dir_path( __FILE__ ) . 'shortcodes/wlwh_shortcode_view.php');
 
 //include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-settings-link.php');

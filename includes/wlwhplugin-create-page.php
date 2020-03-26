@@ -40,26 +40,19 @@ if( !class_exists('wlwh_create_page')){
 
       function catch_plugin_template($template) {
 
-					if( isset( $this->options['pageselect']) ){
-							$page_id = $this->options['pageselect'];
-							if($page_id == '-1'){
-									$title = 'Wish List';
-									$page = get_page_by_title($title);
-									if( isset($page->ID)){
-											$page_id = $page->ID;
-									}
+				if( isset( $this->options['pageselect']) ){
+						$page_id = $this->options['pageselect'];
+						if($page_id == '-1'){
 
-							}
-					}
-
-			    if( is_page($page_id) ) {
-							$template =  (WLWHPLUGIN_DIR . 'templates/frontend/page-wishlist.php');
-					}
-          return $template;
+						} else if(is_page($page_id)) {
+									$template =  (WLWHPLUGIN_DIR . 'templates/frontend/page-wishlist.php');
+						}
+				}
+				return $template;
       }
 	}  // class
 }
   $wlwh_page_object = new wlwh_create_page;
-  add_action( 'admin_init', array($wlwh_page_object , 'wlwh_add_page') );
+  //add_action( 'admin_init', array($wlwh_page_object , 'wlwh_add_page') );
   add_filter('page_template',array($wlwh_page_object , 'catch_plugin_template') );
   // Page template filter callback
