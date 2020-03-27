@@ -11,16 +11,20 @@ if( !class_exists('wlwh_the_wishlist')){
 
 
     public function create_wishlist(){
+
+
       ?>
       <div class="page-wishlist" id="wish-container">
             <?php
             $options = get_option('wlwhplugin_settings');
+
             global $post;
             $post_id= $post->ID;
 
             if (has_post_thumbnail($post_id) && isset($options['img_background']) ){
               $featured_img_url = get_the_post_thumbnail_url($post_id);
             }
+
             ?>
             <div style="background-image: url('<?php _e($featured_img_url); ?>'); ">
                 <div class ="wish-header">
@@ -39,6 +43,7 @@ if( !class_exists('wlwh_the_wishlist')){
                 );
                 $wishQuery = new WP_Query($args);
                 $count = $wishQuery->found_posts;
+								
                 $wishQuery->the_post();
                 $productId = sanitize_text_field(get_post_meta(get_the_ID(),'wishids',true));
                 if( $productId){
@@ -46,7 +51,8 @@ if( !class_exists('wlwh_the_wishlist')){
                 } else { //no products in wish list
                           //  _e("No products in  your wish list");
                 }
-                             //	print_r($wishListIds);
+								wp_reset_query();
+								             //	print_r($wishListIds);
             } //  if user logged in
             else { //user not logged so look for cookie
                   //	 				_e("Please log in to see your wish list");
@@ -82,6 +88,8 @@ if( !class_exists('wlwh_the_wishlist')){
 
             <?php
             if(!empty($wishListIds)){
+
+
                       foreach ($wishListIds as $wishListId) {
                         //print_r($wishListId);
                            if($wishListId){

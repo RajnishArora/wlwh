@@ -86,6 +86,7 @@ class WishList {
 							let short = $(allWishBoxes[i]).data('short');
 							let shorttrue="true";
 							let shortcheck = shorttrue.localeCompare(short);
+							console.log("Short check ")
 							console.log(shortcheck);
 							if(shortcheck == 0) {
 										$(allWishBoxes[i]).removeClass("hidden");
