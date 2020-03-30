@@ -1,4 +1,8 @@
 <?php
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if( !class_exists('wlwh_create_button')){
 
@@ -46,9 +50,11 @@ if( !class_exists('wlwh_create_button')){
 			}
 
 		public function wlwh_add_short_button($btnlabel){
+
 					if(is_product()){
 								global $product;
-								$id = $product->get_id();
+								//$id = $product->get_id();
+								$id = get_the_ID();
 								$currentproduct = wc_get_product( $id );
 								$x= $this->check_wish_status();
 								if( isset( $this->options[ 'wlwh_heart_picker_label' ] ) ) {
@@ -60,6 +66,9 @@ if( !class_exists('wlwh_create_button')){
 								<div style = "color: <?php _e($text_col);?>" >
 											<div class="single-addtowishList wish-button" data-singleproductid="<?php _e($id); ?>" data-singleexiststatus = "<?php _e($x); ?>" style="">
 													<?php
+													if( isset( $this->options[ 'btnicon' ] )  ) {
+															?> <i class = "fa fa-list "></i> &nbsp <?php
+													}
 													if( $btnlabel != '') {
 															_e(sanitize_text_field($btnlabel));
 													} else {
@@ -68,6 +77,20 @@ if( !class_exists('wlwh_create_button')){
 
 													?>
 											</div>
+											<div class = "added-wish hidden inwishlistbtn" style="color: <?php _e($text_col); ?>">
+													 <?php
+																	 if( isset( $this->options[ 'wlwh_inwishlist' ] )  && $this->options['wlwh_inwishlist'] != ''){
+																				 _e(sanitize_text_field($this->options['wlwh_inwishlist']));
+																	 }
+														?>
+											 </div>
+											 <div class = "added-wish hidden added-wishbutton " style="color: <?php _e($text_col); ?>">
+														 <?php
+																	 if( isset( $this->options[ 'wlwh_btntoast' ] )  && $this->options['wlwh_btntoast'] != ''){
+																				 _e(sanitize_text_field($this->options['wlwh_btntoast']));
+																	 }
+														?>
+											 </div>
 								</div>
 								<?php
 
@@ -77,8 +100,9 @@ if( !class_exists('wlwh_create_button')){
 
 		public function wlwh_add_button(){
 				global $product;
-			  $id = $product->get_id();
-			  $currentproduct = wc_get_product( $id );
+			  //$id = $product->get_id();
+				$id = get_the_ID();
+				$currentproduct = wc_get_product( $id );
 				$x= $this->check_wish_status();
 				if( isset( $this->options[ 'wlwh_heart_picker_label' ] ) ) {
 						$text_col = sanitize_text_field($this->options[ 'wlwh_heart_picker_label' ]) ;
@@ -89,15 +113,35 @@ if( !class_exists('wlwh_create_button')){
 				<div style = "color: <?php _e($text_col);?>" >
 							<div class="single-addtowishList wish-button" data-singleproductid="<?php _e($id); ?>" data-singleexiststatus = "<?php _e($x); ?>" >
 									<?php
+									if( isset( $this->options[ 'btnicon' ] )  ) {
+												?> <i class = "fa fa-list "></i> &nbsp <?php
+									}
 									if( isset( $this->options[ 'wlwh_buttontext' ] )  && $this->options['wlwh_buttontext'] != '') {
-									  	_e(sanitize_text_field($this->options['wlwh_buttontext']));
+												_e(sanitize_text_field($this->options['wlwh_buttontext']));
 									} else {
 											_e("Add to WishList");
 									}
 
 									?>
 							</div>
+						 <div class = "added-wish hidden inwishlistbtn" style="color: <?php _e($text_col); ?>">
+									<?php
+													if( isset( $this->options[ 'wlwh_inwishlist' ] )  && $this->options['wlwh_inwishlist'] != ''){
+																_e(sanitize_text_field($this->options['wlwh_inwishlist']));
+													}
+									 ?>
+							</div>
+ 						 	<div class = "added-wish hidden added-wishbutton " style="color: <?php _e($text_col); ?>">
+										<?php
+													if( isset( $this->options[ 'wlwh_btntoast' ] )  && $this->options['wlwh_btntoast'] != ''){
+																_e(sanitize_text_field($this->options['wlwh_btntoast']));
+													}
+									 ?>
+							</div>
 				 </div>
+
+
+
 				<?php
 		}
 

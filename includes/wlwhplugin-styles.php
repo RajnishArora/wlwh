@@ -1,5 +1,8 @@
 <?php
-
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 // Load CSS on the frontend
 function wlwhplugin_frontend_styles() {

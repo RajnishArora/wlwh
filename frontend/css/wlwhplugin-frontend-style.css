@@ -93,6 +93,10 @@
     color: inherit;
 }
 
+.wish-button:active {
+  transform: translateY(4px);
+}
+
 .added-wish {
   position: fixed;
   text-align: left;

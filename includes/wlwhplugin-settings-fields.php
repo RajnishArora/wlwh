@@ -1,4 +1,8 @@
 <?php
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 
 function wlwhplugin_settings() {
@@ -127,15 +131,6 @@ function wlwhplugin_settings() {
                       'wlwhplugin_settings_section'
               );
 
-                        // Textarea Field
-            add_settings_field(
-              'wlwhplugin_css_textarea',
-              __( 'Additional Settings(css) for heart icon', 'wlwhplugin'),
-              'wlwhplugin_css_textarea_callback',
-              'wlwhplugin',
-              'wlwhplugin_settings_section'
-            );
-
 
 
           // Define (at least) one section for our fields
@@ -165,7 +160,48 @@ function wlwhplugin_settings() {
                           'wlwhplugin_button_settings_section'
                   );
 
-                // select field
+
+									  // Checkbox Field
+									  add_settings_field(
+									    'wlwhplugin_btnicon_selector_checkbox',
+									    __( 'Show List Icon on Button', 'wlwhplugin'),
+									    'wlwhplugin_btnicon_selector_checkbox_callback',
+									    'wlwhplugin',
+									    'wlwhplugin_button_settings_section',
+									    [
+									      'label' => 'Click to View on All buttons'
+									    ]
+									  );
+
+                  // Input Text Field
+                  add_settings_field(
+                          // Unique identifier for field
+                          'wlwhplugin_button_toast_text',
+                          // Field Title
+                          __( 'Button Toast (Added to WishList ...)  ', 'wlwhplugin'),
+                          // Callback for field markup
+                          'wlwhplugin_button_toast_text_callback',
+                          // Page to go on
+                          'wlwhplugin',
+                          // Section to go in
+                          'wlwhplugin_button_settings_section'
+                  );
+
+
+                  // Input Text Field
+                  add_settings_field(
+                          // Unique identifier for field
+                          'wlwhplugin_button_inwishlist_text',
+                          // Field Title
+                          __( 'Button Toast (Already in WishList ...)  ', 'wlwhplugin'),
+                          // Callback for field markup
+                          'wlwhplugin_button_inwishlist_text_callback',
+                          // Page to go on
+                          'wlwhplugin',
+                          // Section to go in
+                          'wlwhplugin_button_settings_section'
+                  );
+
 
                 // Dropdown
            add_settings_field(
@@ -313,20 +349,24 @@ function wlwhplugin_single_selector_checkbox_callback( $args ) {
 
 }
 
-function wlwhplugin_css_textarea_callback() {
+
+function wlwhplugin_btnicon_selector_checkbox_callback( $args ) {
 
   $options = get_option( 'wlwhplugin_settings' );
 
-	$textarea = '';
-	if( isset( $options[ 'csstextarea' ] ) ) {
-		$textarea = esc_html( $options['csstextarea'] );
+  $checkbox = '';
+	if( isset( $options[ 'btnicon' ] ) ) {
+		$checkbox = esc_html( $options['btnicon'] );
+
 	}
 
-  _e('<textarea id="wlwhplugin_css_textarea" name="wlwhplugin_settings[csstextarea]" rows="5" cols="50">' . $textarea . '</textarea>') ;
-  _e('<br><br><br><br>');
+	$html = '<input type="checkbox" id="wlwhplugin_btnicon_checkbox" name="wlwhplugin_settings[btnicon]" value="1"' . checked( 1, $checkbox, false ) . '/>';
+	$html .= '&nbsp;';
+	$html .= '<label for="wlwhplugin_btnicon_checkbox">' . $args['label'] . '</label>';
+
+	_e($html);
+
 }
-
-
 
 
 function wlwhplugin_feature_image_callback( $args ) {
@@ -370,6 +410,29 @@ function wlwhplugin_button_text_callback() {
 		$wlwh_buttontext = esc_html( $options['wlwh_buttontext'] );
 	}
   _e( '<input type="text" id="wlwhplugin_buttontext" name="wlwhplugin_settings[wlwh_buttontext]" size="25" value="' . $wlwh_buttontext . '" />' );
+}
+
+
+function wlwhplugin_button_toast_text_callback() {
+
+  $options = get_option( 'wlwhplugin_settings' );
+
+	$wlwh_btntoast = '';
+	if( isset( $options[ 'wlwh_btntoast' ] ) ) {
+		$wlwh_btntoast = esc_html( $options['wlwh_btntoast'] );
+	}
+  _e( '<input type="text" id="wlwhplugin_btntoast" name="wlwhplugin_settings[wlwh_btntoast]" size="25" value="' . $wlwh_btntoast . '" />' );
+}
+
+function wlwhplugin_button_inwishlist_text_callback() {
+
+  $options = get_option( 'wlwhplugin_settings' );
+
+	$wlwh_inwishlist = '';
+	if( isset( $options[ 'wlwh_inwishlist' ] ) ) {
+		$wlwh_inwishlist = esc_html( $options['wlwh_inwishlist'] );
+	}
+  _e( '<input type="text" id="wlwhplugin_inwishlist" name="wlwhplugin_settings[wlwh_inwishlist]" size="25" value="' . $wlwh_inwishlist . '" />' );
 }
 
 
@@ -435,7 +498,7 @@ function wlwhplugin_toast_text_callback() {
 		$wlwh_toast = esc_html( $options['wlwh_toast'] );
 	}
   _e( '<input type="text" id="wlwhplugin_toasttext" name="wlwhplugin_settings[wlwh_toast]" maxlength="25" size="25" value="' . $wlwh_toast . '" />' );
-
+  _e('<br><br><br><br>');
 }
 
 

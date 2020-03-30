@@ -1,4 +1,9 @@
 <?php
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if( !class_exists('wlwh_create_page')){
 	class wlwh_create_page{
   private $wish_page_template =  WLWHPLUGIN_DIR . 'templates/frontend/page-wishlist.php' ;

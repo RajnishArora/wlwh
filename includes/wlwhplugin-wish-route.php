@@ -1,4 +1,9 @@
 <?php
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 // donot allow duplicate enteries
 
 if(!function_exists('wlwhRegisterLike')){
@@ -152,6 +157,7 @@ if(!function_exists('wlwh_removeWish')){
 
 						update_post_meta($wishpostId,'wishids',$strWishLishUpdated);
 					}
+					return $strWishLishUpdated;
 				} else { // delete from cookie
 						$cookie_time = 30;
 

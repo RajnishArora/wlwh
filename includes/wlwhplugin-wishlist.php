@@ -1,4 +1,8 @@
 <?php
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if( !class_exists('wlwh_the_wishlist')){
 	class wlwh_the_wishlist{
@@ -43,7 +47,7 @@ if( !class_exists('wlwh_the_wishlist')){
                 );
                 $wishQuery = new WP_Query($args);
                 $count = $wishQuery->found_posts;
-								
+
                 $wishQuery->the_post();
                 $productId = sanitize_text_field(get_post_meta(get_the_ID(),'wishids',true));
                 if( $productId){

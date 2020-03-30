@@ -28,6 +28,7 @@ if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', 
 define( 'WLWHPLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WLWHPLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
+ob_start();
 
 // Create Settings Fields
 include( WLWHPLUGIN_DIR . 'includes/wlwhplugin-settings-fields.php');
@@ -42,6 +43,8 @@ include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-scripts.php');
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-create-metabox.php');
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-post-types.php');
+include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-activation-hooks.php');
+
 
 include( plugin_dir_path( __FILE__ ) . 'includes/wlwhplugin-show-hearts.php');
 
@@ -62,3 +65,5 @@ function wlwhplugin_add_settings_link( $links ) {
 }
 $filter_name = "plugin_action_links_" . plugin_basename( __FILE__ );
 add_filter( $filter_name, 'wlwhplugin_add_settings_link' );
+
+?>

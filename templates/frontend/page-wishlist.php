@@ -1,6 +1,9 @@
 <?php
 
 /* Template Name: wishlist */
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 get_header();
 ?>

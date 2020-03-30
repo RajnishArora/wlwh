@@ -1,3 +1,16 @@
+<?php
+/**
+ *
+ * @package           Wishlist-with-hearts
+ */
+
+
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+?>
+
 <div class="wrap">
 
   <h1><?php esc_html_e( get_admin_page_title() ); ?></h1>

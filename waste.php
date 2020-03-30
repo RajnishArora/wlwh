@@ -1,3 +1,42 @@
+cssadjust.js
+window.$ = window.jQuery = $ = jQuery  ;
+
+class CssAdjust{
+    constructor() {
+
+        this.events()
+        }
+
+
+
+    events(){
+      // problem hearts hidden so wait till unhiding
+        $(function() {
+                var heartboxcss_element = $('#heartboxcss');
+                var heartboxcss_val = $.trim( $(heartboxcss_element).val() );
+                // get all wishboxes & apply above css to exch
+                let allWishBoxes = document.getElementsByClassName("wish-box");
+    						if ( allWishBoxes.length < 0) return;
+                console.log(allWishBoxes.length)
+                //heartboxcss_val = heartboxcss_val.substring(1, heartboxcss_val.length - 1);
+                $(allWishBoxes).each(function(){
+                    //$(this).css("background-color", "yellow
+                    //$(this).css({"background-color": "yellow"});
+                //    console.log(heartboxcss_val)
+                //
+                    //console.log($(this));
+                    console.log(heartboxcss_val)
+                    $(this).css(heartboxcss_val);
+                });
+        });
+
+    }
+}
+
+var cssadjust1  = new CssAdjust();
+
+
+
 
 
 					if( isset( $this->options['pageselect']) ){

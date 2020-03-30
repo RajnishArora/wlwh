@@ -1,5 +1,8 @@
 <?php
-
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 if( !class_exists('wlwh_create_metabox')){
 
 	class wlwh_create_metabox{
@@ -35,7 +38,7 @@ if( !class_exists('wlwh_create_metabox')){
 						<?php
 
 						//$str = date("l jS \of F Y h:i:s A");
-						//echo $str;
+
 						$wishString  = $custom["wishids"][0] ;
 						$wishListIds = array_reverse(explode(',',$wishString));
 						$options = get_option( 'wlwhplugin_email_settings' );
@@ -66,7 +69,7 @@ if( !class_exists('wlwh_create_metabox')){
  													</div>
 
 													<div class= "col-5">
-																 <button type="button" class ="emailbutton" data-productid="<?php _e($wishListId);?>" data-postid="<?php _e($post->ID); ?>" >Send mail to <?php echo $user_info->display_name ; ?> about this product</button>
+																 <button type="button" class ="emailbutton" data-productid="<?php _e($wishListId);?>" data-postid="<?php _e($post->ID); ?>" >Send mail to <?php _e($user_info->display_name); ?> about this product</button>
 													</div>
 
 										</div>

@@ -1,4 +1,8 @@
 <?php
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if( !class_exists('wlwh_show_hearts')){
 	class wlwh_show_hearts{
@@ -10,8 +14,17 @@ if( !class_exists('wlwh_show_hearts')){
 
 		}
 
-		function wlwhplugin_add_short_wishbox(){
-				$this->wlwhplugin_add_wishbox_markup("true");
+		function wlwhplugin_add_short_wishbox($visibility){
+
+				if($visibility != ''){
+						if(($visibility == "hidden")){
+									$this->wlwhplugin_add_wishbox_markup("hidden");
+						} else {
+									$this->wlwhplugin_add_wishbox_markup("true");
+						}
+				}
+
+
 		}
 
 
@@ -102,6 +115,7 @@ if( !class_exists('wlwh_show_hearts')){
 				<span class = "right_correction hidden">
 						<?php _e(sanitize_text_field( $this->options['wlwh_correction_right']));	 ?>
 				</span>
+
 			<?php
 		} // function wlwhplugin_add_wishbox_markup
 

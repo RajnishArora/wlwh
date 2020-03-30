@@ -1,4 +1,8 @@
 <?php
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 // Load JS on all admin pages
 function wlwhplugin_admin_scripts() {
@@ -23,8 +27,7 @@ function wlwhplugin_frontend_scripts() {
   wp_enqueue_script(
     'wlwhplugin-frontend', WLWHPLUGIN_URL . 'frontend/js/wlwhplugin-wishlist.js', [], 1.0,true
   );
-
-  wp_localize_script('wlwhplugin-frontend', 'wlwhData', array(
+	  wp_localize_script('wlwhplugin-frontend', 'wlwhData', array(
       'pluginsUrl' => plugins_url(),
       'root_url' => get_site_url(),
       'nonce' => wp_create_nonce('wp_rest'),

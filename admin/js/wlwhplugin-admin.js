@@ -20,7 +20,7 @@ class Switch{
 makeReadOnly(){
          document.addEventListener("DOMContentLoaded", function(e) {
               let inputboxes = document.getElementsByTagName('input');
-              console.log(inputboxes.length);
+              //console.log(inputboxes.length);
               let i=0 , j=0;
 
               let found = false;

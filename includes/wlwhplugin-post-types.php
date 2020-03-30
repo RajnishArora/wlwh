@@ -1,5 +1,8 @@
 <?php
-
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if( !class_exists('wlwh_create_cpt')){
 
@@ -25,7 +28,7 @@ class wlwh_create_cpt{
                       ),
                       'map_meta_cap'  => true,
                       'labels' => array(
-                          'name' => _x('Wish Lists','post type general name','wlwhplugin'),
+                          'name' => _x('WishList','post type general name','wlwhplugin'),
                           'singular_name' => _x('Wish List','post type singular name','wlwhplugin'),
                           'all_items' => __('All Users','wlwhplugin')
 

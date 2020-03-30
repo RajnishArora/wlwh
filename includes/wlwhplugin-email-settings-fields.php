@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 
 function wlwhplugin_email_settings() {
   // If plugin settings don't exist, then create them

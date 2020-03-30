@@ -32,7 +32,7 @@ class WishList {
 	}
 
 		show_toast(currentWishBox){
-		//	console.log("show_toast called")
+			//console.log("show_toast called")
 			let wishAdded = currentWishBox.next(".added-wish");
 			let cwbOffest = currentWishBox.offset();
 			let cwbTop = cwbOffest.top;
@@ -60,6 +60,57 @@ class WishList {
 
 		}
 
+		show_toastbutton(currentbtn){
+					//console.log(currentbtn);
+					var wishAddedbtn = currentbtn.next().next(".added-wishbutton");
+					//console.log(wishAddedbtn);
+
+					var cwbOffest = currentbtn.offset();
+					var cwbTop = cwbOffest.top;
+					var cwbLeft = cwbOffest.left;
+			//		console.log(cwbLeft);
+					cwbTop += 10;
+					cwbLeft += 150;
+					$(wishAddedbtn).removeClass("hidden");
+					$(wishAddedbtn).offset({left: cwbLeft ,top: cwbTop});
+
+					window.onscroll = function (e){
+							$(wishAddedbtn).addClass("hidden");
+					}
+
+					setTimeout( function(){
+								wishAddedbtn.addClass("hidden");
+
+							},
+							3000);
+		}
+
+
+
+			show_toast_inwishlist(currentbtn){
+							//console.log(currentbtn);
+							let wishAddedbtn = currentbtn.next(".inwishlistbtn");
+							//console.log(wishAddedbtn);
+							var cbOffset = currentbtn.offset();
+							var cbTop = cbOffset.top;
+							var cbLeft = cbOffset.left;
+
+							cbTop += 10;
+							cbLeft += 150;
+							//console.log(cbLeft);
+							//console.log(cbTop);
+							$(wishAddedbtn).removeClass("hidden");
+							$(wishAddedbtn).offset({left: cbLeft ,top: cbTop});
+
+							window.onscroll = function (e){
+									$(wishAddedbtn).addClass("hidden");
+							}
+
+							setTimeout( function(){
+										$(wishAddedbtn).addClass("hidden");
+									},
+									3000);
+				}
 
 		place_wishboxes( ){
 
@@ -80,18 +131,21 @@ class WishList {
 								this.rightCorrection = Number(rc[0].innerText);
 						}
 
-						//alert(this.rightCorrection);
-
 						for(i=0; i<allWishBoxes.length; i++){
-							let short = $(allWishBoxes[i]).data('short');
+							let short = $(allWishBoxes[i]).attr('data-short');
 							let shorttrue="true";
 							let shortcheck = shorttrue.localeCompare(short);
-							console.log("Short check ")
-							console.log(shortcheck);
+							//console.log("Short ")
+							//console.log(short);
 							if(shortcheck == 0) {
 										$(allWishBoxes[i]).removeClass("hidden");
 										continue; // skip the current iteration
 									}
+							let shorthidden="hidden";
+							let hiddencheck = shorthidden.localeCompare(short);
+							if( hiddencheck == 0) {
+									continue;
+							}
 							this.di = $(allWishBoxes[i]).parent().find('img');
 							let displayImage = $(allWishBoxes[i]).parent().find('img');
 							//console.log(displayImage[0]);
@@ -116,7 +170,7 @@ class WishList {
 								let leftPos = posImg.left + dImgWidth*0.1;
 								let rightPos =   posImg.left + dImgWidth*0.87;
 								let topPos = posImg.top +  dImgHeight*0.1;
-								let bottomPos =posImg.top + dImgHeight*0.87;
+								let bottomPos =posImg.top + dImgHeight*0.85;
 								$(allWishBoxes[i]).removeClass("hidden");
 								$(allWishBoxes[i]).removeClass("wish-box-topleft");
 								this.leftPlace = leftPos;
@@ -210,7 +264,7 @@ class WishList {
 		url: wlwhData.root_url + this.jsonorrest + '/wlwh/v1/manageWish',
 
       type: 'POST',
-      data: {'productId': currentWishBox.data('product-id') },
+      data: {'productId': currentWishBox.attr('data-product-id') },
       success: (response) => {
 				console.log(response);
 				currentWishBox.attr('data-exists', 'yes');
@@ -241,14 +295,19 @@ class WishList {
 	      },
 //	      url:  wlwhData.root_url + '/wp-json/wlwh/v1/manageWish',
 		url: wlwhData.root_url + this.jsonorrest + '/wlwh/v1/manageWish',
-		data: {'productId': currentWishBox.data('product-id') },
+		data: {'productId': currentWishBox.attr('data-product-id') },
 	      type: 'DELETE',
 	      success: (response) => {
+					currentWishBox.attr('data-exists', 'no');
         	//console.log(currentWishBox.attr('data-exists'));
-	        console.log(response);
+					console.log("success");
+					//console.log(currentWishBox.attr('data-product-id'))
+	        //console.log(response);
 	      },
 	      error: (response) => {
 					currentWishBox.attr('data-exists', oldStatus);
+					//console.log("fail");
+					//console.log(currentWishBox.attr('data-product-id'))
 	        console.log(response);
 	      }
 	    });
@@ -259,14 +318,37 @@ class WishList {
 singleProductAddWish(e){
         //var that = this;
 
-        var evtDet = $(e.target);
-        var temp = evtDet.data("singleproductid");
+				//var wishbtn = $(".added-wishbutton");
+				var currentWishBox;
+				var evtDet = $(e.target);
+        //var temp = evtDet.data("singleproductid");
+				var temp = evtDet.attr('data-singleproductid');
+				let currentbtn = $(e.target).closest(".wish-button");
+				let btnProductId = currentbtn.attr('data-singleproductid');
+				let allWishBoxes = $(":root").find(".wish-box");
+				if(allWishBoxes.length <= 0){
+					alert("No heart found . Either select from settings or add heart via shortcode You may add a hidden heart if not needed ");
+					return;
+				}
+				//console.log(allWishBoxes);
+				allWishBoxes.each( function(){
+						//console.log( $(this).attr('data-product-id') );
+						if($(this).attr('data-product-id') == btnProductId){
+									currentWishBox= $(this);
+						}
+				});
+				//console.log(currentWishBox);
+				//console.log(currentWishBox.length);
+				if (currentWishBox == null){
+						this.singleWishBox.remove();
+						alert("No heart found . Either select from settings or add heart via shortcode You may add a hidden heart if not needed ");
+						return;
+				}
+				if(currentWishBox.length <= 0 ){
+						this.singleWishBox.remove();
+						alert("No heart found . Either select from settings or add heart via shortcode You may add a hidden heart if not needed ");
+						return;
 
-				let currentWishBox = $('.single-product').find(".wish-box");
-				if(currentWishBox.length <= 0){
-								console.log("Wish Box could not be located");
-								//so create a hidden wish box ??
-								return;
 				}
 
 				let oldStatus = currentWishBox.attr('data-exists');
@@ -274,6 +356,7 @@ singleProductAddWish(e){
 				let status = currentWishBox.attr('data-exists');
 				// let status = oldStatus'
 				//console.log(status);
+				//console.log(currentWishBox.attr('data-product-id'));
         //var status = evtDet.data("singleexiststatus");
 				//alert(status);
 				if( currentWishBox.attr('data-logged') == 'yes'){
@@ -298,7 +381,7 @@ singleProductAddWish(e){
 			              success: (response) => {
 											currentWishBox.attr('data-exists', 'yes');
 											this.show_toast(currentWishBox);
-
+											this.show_toastbutton(currentbtn);
 			              },
 			              error: (response) => {
 											currentWishBox.attr('data-exists', oldStatus);
@@ -307,6 +390,7 @@ singleProductAddWish(e){
 			            });
 
         } else if (status == 'yes'){
+							this.show_toast_inwishlist(currentbtn);
              console.log("already exists in wish list");
 						 //show a modal as in added to wishlist
           } else {
@@ -322,8 +406,10 @@ singleProductAddWish(e){
 	ourTrashWish(evt){
 
       var evtDet = $(evt.target);
-      var temp = $(evtDet).data("trashitem");
-	  var temp2= $(evtDet).data("trashjson");
+      //var temp = $(evtDet).data("trashitem");
+	  //var temp2= $(evtDet).data("trashjson");
+		var temp = $(evtDet).attr('data-trashitem');
+		var temp2= $(evtDet).attr('data-trashjson');
 		//	alert(" trash clicked ");
 		//	alert(temp);
 		if(temp2 == true) {
